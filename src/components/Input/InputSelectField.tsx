@@ -7,7 +7,7 @@ type Data = {
 };
 
 interface IInputSelectProps {
-  defaultValue: string;
+  defaultValue?: string;
   label?: string;
   size?: 'small' | 'medium' | undefined;
   placeholder?: string;
@@ -26,7 +26,33 @@ const InputSelectField = ({
   ...inputProps
 }: IInputSelectProps) => {
   return (
-    <TextField {...inputProps} select fullWidth size={size} margin="normal" label={label}>
+    <TextField
+      {...inputProps}
+      select
+      fullWidth
+      size={size}
+      margin="normal"
+      label={label}
+      sx={{
+        border: 0,
+
+        '& .MuiOutlinedInput-root.Mui-focused': {
+          '& > fieldset': {
+            borderColor: 'secondary.main',
+            borderWidth: '1px'
+          }
+        },
+        '& .MuiFormLabel-root.Mui-focused': {
+          color: 'secondary.main'
+        },
+
+        '& fieldset': {
+          outline: 'none',
+          color: 'secondary.main',
+          borderWidth: '1px'
+        }
+      }}
+    >
       {data.map(({ id, name }) => (
         <MenuItem key={id}>{name}</MenuItem>
       ))}

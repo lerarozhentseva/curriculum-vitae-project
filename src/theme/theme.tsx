@@ -10,6 +10,9 @@ const theme = createTheme({
       main: '#c63031', //red
       contrastText: '#ffff'
     }
+  },
+  shape: {
+    borderRadius: 0
   }
 });
 

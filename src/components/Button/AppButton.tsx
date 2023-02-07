@@ -7,7 +7,7 @@ interface IAppButton {
   disabled?: boolean;
 }
 
-const AppButton = ({ variant, children }: IAppButton) => {
+const AppButton = ({ variant, children, disabled }: IAppButton) => {
   return (
     <Button
       fullWidth
@@ -17,6 +17,7 @@ const AppButton = ({ variant, children }: IAppButton) => {
       }}
       variant={variant}
       color="secondary"
+      disabled={disabled}
     >
       {children}
     </Button>
