@@ -50,7 +50,11 @@ const Form: FC<FormProps> = ({ formType, onSubmit, loading }) => {
           {title}
         </Typography>
         <Typography sx={{ mt: 2 }}>{text}</Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={(e) => {
+            handleSubmit(onSubmit)(e);
+          }}
+        >
           <TextField
             fullWidth
             placeholder="Enter email"

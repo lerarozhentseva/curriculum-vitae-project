@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../graphql/auth/authService';
 import { ISignupResult } from '../../graphql/auth/IAuthResult';
-import { SIGNUP } from '../../graphql/auth/mutation';
+import { signupMutation } from '../../graphql/auth/mutation';
 import { IInput } from '../../graphql/auth/IInput';
 import Form from '../Form';
 
@@ -14,7 +14,7 @@ export const SignUpFormType = {
 };
 
 const SignupPage: FC = () => {
-  const [signup, { loading }] = useMutation<ISignupResult>(SIGNUP);
+  const [signup, { loading }] = useMutation<ISignupResult>(signupMutation);
   const navigate = useNavigate();
 
   const onSubmit = async (input: IInput) => {

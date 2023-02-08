@@ -3,7 +3,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../graphql/auth/authService';
 import { ILoginResult } from '../../graphql/auth/IAuthResult';
-import { LOGIN } from '../../graphql/auth/query';
+import { LoginQuery } from '../../graphql/auth/query';
 import { IInput } from '../../graphql/auth/IInput';
 import Form from '../Form';
 
@@ -14,7 +14,7 @@ export const LoginFormType = {
 };
 
 const LoginPage: FC = () => {
-  const [login, { loading }] = useLazyQuery<ILoginResult>(LOGIN);
+  const [login, { loading }] = useLazyQuery<ILoginResult>(LoginQuery);
   const navigate = useNavigate();
 
   const onSubmit = async (input: IInput) => {
