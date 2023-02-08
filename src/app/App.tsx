@@ -4,9 +4,5 @@ import theme from '../theme/theme';
 import '../index.css';
 
 export const App = () => {
-  return (
-    <>
-      <ThemeProvider theme={theme}></ThemeProvider>
-    </>
-  );
+  return <ThemeProvider theme={theme}></ThemeProvider>;
 };

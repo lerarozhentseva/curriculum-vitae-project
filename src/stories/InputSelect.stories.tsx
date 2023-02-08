@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InputSelectField from '../components/Input/InputSelectField';
+import InputSelectField, { InputSelectProps } from '../components/Input/InputSelectField';
 
 export default {
   title: 'InputSelect',
@@ -52,6 +52,10 @@ const positionData = [
     name: 'Project Manager'
   }
 ];
+
+export const InputSelectCommon = (args: InputSelectProps) => (
+  <InputSelectField {...args} data={departmentData} label="Department"></InputSelectField>
+);
 
 export const InputSelectDepartment = () => (
   <InputSelectField data={departmentData} label="Department"></InputSelectField>

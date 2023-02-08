@@ -1,9 +1,12 @@
 import React from 'react';
-import AppTabs from '../components/Tab/AppTabs';
+import AppTabs, { AppTabsProps } from '../components/Tab/AppTabs';
 
 export default {
   title: 'AppTabs',
-  component: AppTabs
+  component: AppTabs,
+  argTypes: {
+    tabsData: { control: [] }
+  }
 };
 
 const tabsProfileData = [
@@ -42,9 +45,9 @@ const tabsAuthData = [
   }
 ];
 
-export const AppTabsProfile = () => (
+export const AppTabsProfile = (args: AppTabsProps) => (
   <AppTabs
-    tabContextValue="1"
+    {...args}
     type="profile-tabs"
     tabsData={tabsProfileData}
     textColor="primary"
@@ -53,10 +56,11 @@ export const AppTabsProfile = () => (
 );
 export const AppTabsAuth = () => (
   <AppTabs
-    tabContextValue="1"
     type="profile-tabs"
     tabsData={tabsAuthData}
     textColor="secondary"
     indicatorColor="secondary"
   ></AppTabs>
 );
+
+export const AppTabsCommon = (args: AppTabsProps) => <AppTabs {...args} />;

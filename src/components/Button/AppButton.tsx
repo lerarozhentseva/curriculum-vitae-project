@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-interface IAppButton {
+export type AppButtonProps = {
   variant: 'contained' | 'text' | 'outlined';
   children: string;
   disabled?: boolean;
-}
+};
 
-const AppButton = ({ variant, children, disabled }: IAppButton) => {
+const AppButton = ({ variant, children, disabled }: AppButtonProps) => {
   return (
     <Button
       fullWidth

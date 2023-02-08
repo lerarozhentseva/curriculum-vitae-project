@@ -1,12 +1,8 @@
 import { MenuItem, SxProps, TextField } from '@mui/material';
 import React from 'react';
+import './InputField.css';
 
-type Data = {
-  id: number;
-  name: string;
-};
-
-interface IInputSelectProps {
+export type InputSelectProps = {
   defaultValue?: string;
   label?: string;
   size?: 'small' | 'medium' | undefined;
@@ -15,16 +11,10 @@ interface IInputSelectProps {
   color?: 'primary' | 'secondary';
   sx?: SxProps;
   helperText?: string;
-  data: Data[];
-}
+  data: Array<{ id: number; name: string }>;
+};
 
-const InputSelectField = ({
-  defaultValue,
-  label,
-  size = 'medium',
-  data,
-  ...inputProps
-}: IInputSelectProps) => {
+const InputSelectField = ({ label, size = 'medium', data, ...inputProps }: InputSelectProps) => {
   return (
     <TextField
       {...inputProps}
@@ -34,23 +24,7 @@ const InputSelectField = ({
       margin="normal"
       label={label}
       sx={{
-        border: 0,
-
-        '& .MuiOutlinedInput-root.Mui-focused': {
-          '& > fieldset': {
-            borderColor: 'secondary.main',
-            borderWidth: '1px'
-          }
-        },
-        '& .MuiFormLabel-root.Mui-focused': {
-          color: 'secondary.main'
-        },
-
-        '& fieldset': {
-          outline: 'none',
-          color: 'secondary.main',
-          borderWidth: '1px'
-        }
+        border: 0
       }}
     >
       {data.map(({ id, name }) => (

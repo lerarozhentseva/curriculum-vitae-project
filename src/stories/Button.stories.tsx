@@ -1,10 +1,15 @@
 import React from 'react';
-import AppButton from '../components/Button/AppButton';
+import AppButton, { AppButtonProps } from '../components/Button/AppButton';
 
 export default {
   title: 'AppButton',
-  component: AppButton
+  component: AppButton,
+  argTypes: {
+    children: { control: 'text' }
+  }
 };
+
+export const AppCommonBtn = (args: AppButtonProps) => <AppButton {...args}></AppButton>;
 
 export const SignInBtn = () => <AppButton variant="contained">SIGN IN</AppButton>;
 export const ResetPswrdBtn = () => <AppButton variant="text">RESET PASSWORD</AppButton>;

@@ -2,12 +2,14 @@ import React from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SearchIcon from '@mui/icons-material/Search';
-import InputTextField from '../components/Input/InputTextField';
+import InputTextField, { InputProps } from '../components/Input/InputTextField';
 
 export default {
   title: 'InputText',
   component: InputTextField
 };
+
+export const CommonInput = (args: InputProps) => <InputTextField {...args}></InputTextField>;
 
 export const FirstNameInput = () => (
   <InputTextField name="First Name" inputType="text"></InputTextField>
@@ -41,6 +43,6 @@ export const SearchInput = () => (
       )
     }}
     name=""
-    inputType="password"
+    inputType="text"
   ></InputTextField>
 );
