@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { Paper, Grid, InputAdornment, TextField, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { IInput } from '../graphql/auth/IInput';
+import { DocumentNode, useLazyQuery, useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+import { ILoginResult, ISignupResult } from '../graphql/auth/IAuthResult';
+import { LoginQuery } from '../graphql/auth/query';
+import { signupMutation } from '../graphql/auth/mutation';
+import { authService } from '../graphql/auth/authService';
 
 interface FormProps {
   formType: {
@@ -11,88 +12,102 @@ interface FormProps {
     text: string;
     buttonText: string;
   };
-  loading: boolean;
-  onSubmit: (data: IInput) => void;
+  queryAuth: DocumentNode;
 }
 
-const Form: FC<FormProps> = ({ formType, onSubmit, loading }) => {
-  const [hidePassword, setHidePassword] = useState(true);
-  const showPassword = () => {
-    setHidePassword((hidePassword) => !hidePassword);
-  };
+const Form: FC<FormProps> = ({ formType, queryAuth }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [errors, setErrors] = useState({
+    email: '',
+    password: ''
+  });
+  const navigate = useNavigate();
 
   const { title, text, buttonText } = formType;
+  //const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<IInput>();
+  const [login] = useLazyQuery<ILoginResult>(LoginQuery);
+  const [signup] = useMutation<ISignupResult>(signupMutation);
 
-  const passwordValidation = {
-    ...register('password', {
-      required: 'Password is required',
-      minLength: {
-        value: 6,
-        message: 'Your password must be larger then 5 characters'
+  // const showPassword = () => {
+  //   setHiddenPassword(!hiddenPassword);
+  // };
+
+  const validate = () => {
+    const input = { email, password };
+    if (input.password.length < 6) {
+      setErrors({ email: '', password: 'Password must have at least 6 characters.' });
+    }
+    if (!input.email) setErrors({ email: 'Email is required.', password: '' });
+    if (!input.password) setErrors({ email: '', password: 'Password is required.' });
+    if (!input.email && !input.password)
+      setErrors({ email: 'Email is required.', password: 'Password is required.' });
+    return Object.keys(errors).length === 0;
+  };
+
+  const onSubmit = async (event: any) => {
+    event.preventDefault();
+    if (validate()) return;
+    if (queryAuth === LoginQuery) {
+      const { data } = await login({ variables: { email, password } });
+      //setLoading(true);
+      if (data) {
+        authService.addUserToStorage(data.login.user, data.login.access_token);
+        navigate('/employees');
       }
-    })
+    } else if (queryAuth === signupMutation) {
+      const { data } = await signup({ variables: { email, password } });
+      //setLoading(true);
+      if (data) {
+        authService.addUserToStorage(data.signup.user, data.signup.access_token);
+        navigate('/employees');
+      }
+    }
   };
 
   return (
-    <Paper sx={{ width: '500px', height: '420px', m: '100px auto' }}>
-      <Grid
-        container
-        direction="column"
-        sx={{ alignItems: 'center', p: 2, justifyContent: 'center' }}
+    <div style={{ width: '500px', height: '420px', margin: '100px auto' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
       >
-        <Typography sx={{ mt: 2 }} variant="h4">
-          {title}
-        </Typography>
-        <Typography sx={{ mt: 2 }}>{text}</Typography>
+        <h4 style={{ marginTop: '20px' }}>{title}</h4>
+        <p style={{ marginTop: '20px' }}>{text}</p>
         <form
-          onSubmit={(e) => {
-            handleSubmit(onSubmit)(e);
+          style={{
+            display: 'flex',
+            flexDirection: 'column'
           }}
+          onSubmit={onSubmit}
         >
-          <TextField
-            fullWidth
+          <input
             placeholder="Enter email"
-            variant="outlined"
-            sx={{ mt: 2, mb: 2 }}
+            style={{ marginTop: '20px' }}
             type="email"
-            {...register('email')}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-
-          <TextField
-            fullWidth
+          {errors.email && <p>{errors.email}</p>}
+          <input
             placeholder="Enter password"
-            variant="outlined"
-            type={hidePassword ? 'password' : 'text'}
-            {...passwordValidation}
-            helperText={errors.password?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={showPassword}>
-                  {hidePassword ? <Visibility /> : <VisibilityOff />}
-                </InputAdornment>
-              )
-            }}
+            style={{ marginTop: '20px' }}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-
-          <LoadingButton
-            fullWidth
-            type="submit"
-            sx={{ mt: 3 }}
-            size="large"
-            variant="contained"
-            loading={loading}
-          >
+          {errors.password && <p>{errors.password}</p>}
+          <button type="submit" style={{ marginTop: '30px' }}>
             {buttonText}
-          </LoadingButton>
+          </button>
         </form>
-      </Grid>
-    </Paper>
+      </div>
+    </div>
   );
 };
 
