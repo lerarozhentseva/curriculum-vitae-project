@@ -8,7 +8,8 @@ export type InputProps = {
   size?: 'small' | 'medium' | undefined;
   placeholder?: string;
   label?: string;
-  defaultValue?: string;
+  value?: string;
+  onChange?: (e: { target: { value: React.SetStateAction<string> } }) => void;
   error?: boolean;
   color?: 'primary' | 'secondary';
   sx?: SxProps;
@@ -23,18 +24,26 @@ const InputTextField = ({
   inputType,
   name,
   placeholder,
+  error,
   size = 'medium',
+  helperText,
+  value,
+  onChange,
   inputProps = {}
 }: InputProps) => {
   const { endAdornment, startAdornment } = inputProps;
   return (
     <TextField
       name={name}
+      helperText={helperText}
       label={name}
       type={inputType}
       placeholder={placeholder}
       fullWidth
       size={size}
+      error={error}
+      value={value}
+      onChange={onChange}
       InputProps={{ endAdornment, startAdornment }}
       margin="normal"
       sx={{

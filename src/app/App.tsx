@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { ThemeProvider } from "@mui/material";
-import theme from "../theme/theme";
-import "../index.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
+import '../index.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../graphql/client';
 import LoginPage from '../pages/LoginPage/LoginPage';
@@ -12,6 +11,7 @@ import { useAuth } from '../hooks/useAuthHook';
 import { routes } from '../route/routeConstants';
 import { PublicRoute } from '../route/PublicRoute';
 import { PrivateRoute } from '../route/PrivateRoute';
+import theme from '../theme/theme';
 
 const App: FC = (): JSX.Element => {
   const isAuth = useAuth();

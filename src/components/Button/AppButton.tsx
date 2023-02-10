@@ -18,6 +18,7 @@ const AppButton = ({ variant, children, disabled }: AppButtonProps) => {
       variant={variant}
       color="secondary"
       disabled={disabled}
+      type="submit"
     >
       {children}
     </Button>
