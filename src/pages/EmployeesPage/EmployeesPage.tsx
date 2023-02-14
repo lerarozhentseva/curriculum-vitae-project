@@ -1,5 +1,7 @@
+import Header from '../../components/Header/Header';
+
 const EmployeesPage = () => {
-  return <h1>Welcome to Employees Page</h1>;
+  return <Header />;
 };
 
 export default EmployeesPage;

@@ -4,14 +4,15 @@ import '../index.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../graphql/client';
-import LoginPage from '../pages/LoginPage/LoginPage';
+import LoginPage from '../pages/auth/LoginPage/LoginPage';
 import EmployeesPage from '../pages/EmployeesPage/EmployeesPage';
-import SignupPage from '../pages/SignupPage/SignupPage';
+import SignupPage from '../pages/auth/SignupPage/SignupPage';
 import { useAuth } from '../hooks/useAuthHook';
 import { routes } from '../route/routeConstants';
-import { PublicRoute } from '../route/PublicRoute';
-import { PrivateRoute } from '../route/PrivateRoute';
+import { PrivateRoute } from '../route/components/PrivateRoute';
 import theme from '../theme/theme';
+import { NotFoundPage } from '../route/components/NotFoundPage';
+import { PublicRoute } from '../route/components/PublicRoute';
 
 const App: FC = (): JSX.Element => {
   const isAuth = useAuth();
@@ -22,6 +23,7 @@ const App: FC = (): JSX.Element => {
         <Router>
           <Routes>
             <Route
+              index
               element={
                 isAuth ? (
                   <Navigate to={`/${routes.EMPLOYEES}`} replace />
@@ -30,12 +32,27 @@ const App: FC = (): JSX.Element => {
                 )
               }
             />
-            <Route path={routes.LOGIN} element={<PublicRoute>{<LoginPage />}</PublicRoute>} />
-            <Route path={routes.SIGNUP} element={<PublicRoute>{<SignupPage />}</PublicRoute>} />
+            <Route
+              path={routes.LOGIN}
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path={routes.SIGNUP}
+              element={
+                <PublicRoute>
+                  <SignupPage />
+                </PublicRoute>
+              }
+            />
             <Route
               path={routes.EMPLOYEES}
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
       </ApolloProvider>

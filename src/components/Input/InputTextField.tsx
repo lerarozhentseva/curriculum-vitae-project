@@ -29,6 +29,7 @@ const InputTextField = ({
   helperText,
   value,
   onChange,
+  sx,
   inputProps = {}
 }: InputProps) => {
   const { endAdornment, startAdornment } = inputProps;
@@ -46,9 +47,7 @@ const InputTextField = ({
       onChange={onChange}
       InputProps={{ endAdornment, startAdornment }}
       margin="normal"
-      sx={{
-        border: 0
-      }}
+      sx={sx}
     />
   );
 };
