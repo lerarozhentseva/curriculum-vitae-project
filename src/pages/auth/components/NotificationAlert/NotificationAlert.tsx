@@ -8,7 +8,7 @@ export type NotificationAlertProps = {
 
 const NotificationAlert = ({ severity, text }: NotificationAlertProps) => {
   return (
-    <Alert sx={{ width: '450px', m: '0 auto' }} variant="outlined" severity={severity}>
+    <Alert sx={{ width: '435px', m: '0 auto' }} variant="outlined" severity={severity}>
       {text}
     </Alert>
   );
