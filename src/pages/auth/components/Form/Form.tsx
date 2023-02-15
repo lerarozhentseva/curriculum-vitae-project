@@ -96,7 +96,7 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
   };
 
   return (
-    <Paper sx={{ width: '500px', height: '410px', m: '100px auto' }}>
+    <Paper sx={{ width: '500px', height: '450px', m: '100px auto' }}>
       <Grid
         container
         direction="column"
@@ -122,7 +122,7 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
             placeholder="Enter password"
             value={password}
             error={passwordError}
-            helperText={passwordError ? 'Password must have at least 5 characters' : ''}
+            helperText={passwordError ? 'Password must have at least 6 characters' : ''}
             onChange={(e) => setPassword(e.target.value)}
             sx={{ mb: '30px' }}
             inputProps={{

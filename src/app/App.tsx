@@ -52,7 +52,8 @@ const App: FC = (): JSX.Element => {
               path={routes.EMPLOYEES}
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={routes.ERROR} element={<NotFoundPage />} />
+            <Route path="*" element={<Navigate to={routes.ERROR} replace />} />
           </Routes>
         </Router>
       </ApolloProvider>

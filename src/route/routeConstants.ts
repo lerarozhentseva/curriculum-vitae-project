@@ -1,5 +1,6 @@
 export enum routes {
   LOGIN = 'login',
   SIGNUP = 'signup',
-  EMPLOYEES = 'employees'
+  EMPLOYEES = 'employees',
+  ERROR = 'error'
 }
