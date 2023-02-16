@@ -11,7 +11,7 @@ export const PublicRoute: FC<IPublicRouteProps> = ({ children }) => {
   const isAuth = useAuth();
 
   if (isAuth) {
-    return <Navigate to={routes.EMPLOYEES} replace />;
+    return <Navigate to={`/${routes.EMPLOYEES}`} />;
   }
 
   return <>{children}</>;

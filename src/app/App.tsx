@@ -11,7 +11,6 @@ import { useAuth } from '../hooks/useAuthHook';
 import { routes } from '../route/routeConstants';
 import { PrivateRoute } from '../route/components/PrivateRoute';
 import theme from '../theme/theme';
-import { NotFoundPage } from '../route/components/NotFoundPage';
 import { PublicRoute } from '../route/components/PublicRoute';
 
 const App: FC = (): JSX.Element => {
@@ -52,8 +51,6 @@ const App: FC = (): JSX.Element => {
               path={routes.EMPLOYEES}
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
-            <Route path={routes.ERROR} element={<NotFoundPage />} />
-            <Route path="*" element={<Navigate to={routes.ERROR} replace />} />
           </Routes>
         </Router>
       </ApolloProvider>
