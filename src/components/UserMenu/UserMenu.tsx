@@ -1,10 +1,9 @@
 import { Box, Divider, IconButton, Menu, Typography, Avatar } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Settings as SettingsIcon, Logout as LogoutIcon } from '@mui/icons-material';
 import MenuItem from '@mui/material/MenuItem';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
 import React, { useState } from 'react';
-import { authService } from '../../graphql/auth/authService';
+import { authService } from '@graphql/auth/authService';
+import { MenuPaperProps } from '@components/UserMenu/userMenu.styles';
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -45,25 +44,7 @@ const UserMenu = () => {
         open={open}
         onClose={handleCloseMenu}
         onClick={handleCloseMenu}
-        PaperProps={{
-          sx: {
-            overflow: 'visible',
-            width: '250px',
-            filter: 'drop-shadow(0px 3px 10px rgba(0,0,0,0.5))',
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              backgroundColor: 'background.paper',
-              zIndex: 0,
-              top: 0,
-              right: 30,
-              width: 10,
-              height: 10,
-              transform: 'translateY(-50%) rotate(45deg)'
-            }
-          }
-        }}
+        PaperProps={{ sx: MenuPaperProps }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >

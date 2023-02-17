@@ -3,15 +3,15 @@ import { ThemeProvider } from '@mui/material';
 import '../index.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
-import { client } from '../graphql/client';
-import LoginPage from '../pages/auth/LoginPage/LoginPage';
-import EmployeesPage from '../pages/EmployeesPage/EmployeesPage';
-import SignupPage from '../pages/auth/SignupPage/SignupPage';
-import { useAuth } from '../hooks/useAuthHook';
-import { routes } from '../route/routeConstants';
-import { PrivateRoute } from '../route/components/PrivateRoute';
-import theme from '../theme/theme';
-import { PublicRoute } from '../route/components/PublicRoute';
+import { client } from '@graphql/client';
+import LoginPage from '@authPages/LoginPage';
+import EmployeesPage from '@pages/EmployeesPage';
+import SignupPage from '@authPages/SignupPage';
+import { useAuth } from '@hooks/useAuthHook';
+import { routes } from '@route/routeConstants';
+import { PrivateRoute } from '@routeComponents/PrivateRoute';
+import theme from '@theme/theme';
+import { PublicRoute } from '@routeComponents/PublicRoute';
 
 const App: FC = (): JSX.Element => {
   const isAuth = useAuth();
@@ -24,10 +24,11 @@ const App: FC = (): JSX.Element => {
             <Route
               index
               element={
+                //to go to the necessary page when starting application
                 isAuth ? (
-                  <Navigate to={`/${routes.EMPLOYEES}`} replace />
+                  <Navigate to={`/${routes.EMPLOYEES}`} />
                 ) : (
-                  <Navigate to={`/${routes.LOGIN}`} replace />
+                  <Navigate to={`/${routes.LOGIN}`} />
                 )
               }
             />

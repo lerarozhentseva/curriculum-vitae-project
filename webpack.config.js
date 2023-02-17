@@ -47,7 +47,18 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      '@components': resolve(__dirname, 'src/components/'),
+      '@graphql': resolve(__dirname, 'src/graphql/'),
+      '@interfaces': resolve(__dirname, 'src/graphql/interfaces/'),
+      '@hooks': resolve(__dirname, 'src/hooks/'),
+      '@pages': resolve(__dirname, 'src/pages/'),
+      '@authPages': resolve(__dirname, 'src/pages/auth/'),
+      '@route': resolve(__dirname, 'src/route/'),
+      '@routeComponents': resolve(__dirname, 'src/route/components/'),
+      '@theme': resolve(__dirname, 'src/theme/')
+    }
   },
   optimization: {
     splitChunks: {

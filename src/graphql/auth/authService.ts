@@ -1,6 +1,6 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 
-import { IUser } from '../interfaces/IUser';
+import { IUser } from '@interfaces/IUser';
 
 interface IAuthService {
   user$: ReactiveVar<IUser | null>;

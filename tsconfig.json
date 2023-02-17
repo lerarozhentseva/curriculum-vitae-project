@@ -25,7 +25,37 @@
     "typeRoots": [
       "./src/@types",
       "./node_modules/@types"
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@graphql/*": [
+        "graphql/*"
+      ],
+      "@interfaces/*": [
+        "graphql/interfaces/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@authPages/*": [
+        "pages/auth/*"
+      ],
+      "@route/*": [
+        "route/*"
+      ],
+      "@routeComponents/*": [
+        "route/components/*"
+      ],
+      "@theme/*": [
+        "theme/*"
+      ]
+    }
   },
   "include": [
     "src"

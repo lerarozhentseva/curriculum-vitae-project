@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuthHook';
+import { useAuth } from '@hooks/useAuthHook';
 import { routes } from '../routeConstants';
 
 interface IPublicRouteProps {

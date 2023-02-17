@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { signupMutation } from '../../../graphql/auth/mutation';
+import { SIGNUP } from '@graphql/auth/mutation';
+import Header from '@components/Header/Header';
 import Form from '../components/Form/Form';
-import Header from '../../../components/Header/Header';
 
 export const SignUpFormType = {
   title: 'Registration',
@@ -13,7 +13,7 @@ const SignupPage: FC = () => {
   return (
     <>
       <Header />
-      <Form formType={SignUpFormType} queryAuth={signupMutation} />;{' '}
+      <Form formType={SignUpFormType} queryAuth={SIGNUP} />;{' '}
     </>
   );
 };

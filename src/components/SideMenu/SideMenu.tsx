@@ -1,12 +1,15 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import TranslateIcon from '@mui/icons-material/Translate';
-import { Divider, MenuItem, MenuList, Toolbar, Box } from '@mui/material';
-import GroupIcon from '@mui/icons-material/Group';
-import { NavLink } from 'react-router-dom';
-import { routes } from '../../route/routeConstants';
+import {
+  Close as CloseIcon,
+  Translate as TranslateIcon,
+  Group as GroupIcon
+} from '@mui/icons-material';
+import { MenuList, Box } from '@mui/material';
+import { routes } from '@route/routeConstants';
+import { DrawerBox, DrawerToolbar } from '@components/SideMenu/sideMenu.styles';
+import SideMenuItem from '@components/SideMenu/MenuItemSide';
 
 interface ISideMenuProps {
   open: boolean;
@@ -20,21 +23,8 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
 
   return (
     <Drawer anchor="left" open={open} onClick={handleCloseMenu}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: 260
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            backgroundColor: 'primary.main'
-          }}
-        >
+      <DrawerBox>
+        <DrawerToolbar>
           <IconButton
             onClick={handleCloseMenu}
             sx={{
@@ -43,41 +33,26 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
           >
             <CloseIcon />
           </IconButton>
-        </Toolbar>
+        </DrawerToolbar>
         <Box>
           <MenuList>
-            <MenuItem
-              sx={{ fontSize: 20 }}
-              component={NavLink}
-              to={`/${routes.EMPLOYEES}`}
-              onClick={handleCloseMenu}
-            >
+            <SideMenuItem path={`/${routes.EMPLOYEES}`}>
               <GroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
               Employees
-            </MenuItem>
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              Projects
-            </MenuItem>
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              CVs
-            </MenuItem>
-            <Divider />
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              Departments
-            </MenuItem>
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              Positions
-            </MenuItem>
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              Skills
-            </MenuItem>
-            <MenuItem sx={{ fontSize: 20 }} onClick={handleCloseMenu}>
-              <TranslateIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
-              Languages
-            </MenuItem>
+            </SideMenuItem>
+            {/*<SideMenuItem path={}>Projects</SideMenuItem>*/}
+            {/*<SideMenuItem path={}>CVs</SideMenuItem>*/}
+            {/*<Divider />*/}
+            {/*<SideMenuItem path={}>Departments</SideMenuItem>*/}
+            {/*<SideMenuItem path={}>Positions</SideMenuItem>*/}
+            {/*<SideMenuItem path={}>Skills</SideMenuItem>*/}
+            {/*<SideMenuItem path={}>*/}
+            {/*  <TranslateIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />*/}
+            {/*  Languages*/}
+            {/*</SideMenuItem>*/}
           </MenuList>
         </Box>
-      </Box>
+      </DrawerBox>
     </Drawer>
   );
 };

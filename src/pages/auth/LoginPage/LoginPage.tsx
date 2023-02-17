@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { LoginQuery } from '../../../graphql/auth/query';
+import { LoginQuery } from '@graphql/auth/query';
+import Header from '@components/Header/Header';
 import Form from '../components/Form/Form';
-import Header from '../../../components/Header/Header';
 
 export const LoginFormType = {
   title: 'Welcome back!',

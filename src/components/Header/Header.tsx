@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
-import { AppBar, IconButton, Toolbar, Box } from '@mui/material';
+import React from 'react';
+import { AppBar, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuth } from '../../hooks/useAuthHook';
-import AppTabs from '../Tab/AppTabs';
-import { routes } from '../../route/routeConstants';
+import { useAuth } from '@hooks/useAuthHook';
+import useOpenMenu from '@hooks/useOpenMenu';
+import { tabsData } from '@components/Header/utils/utils';
+import { ToolbarBox } from '@components/Header/header.styles';
 import UserMenu from '../UserMenu/UserMenu';
+import AppTabs from '../Tab/AppTabs';
 import { SideMenu } from '../SideMenu/SideMenu';
 
 const Header = () => {
   const isAuth = useAuth();
+  const { isOpenMenu, handleOpenMenu, handleCloseMenu } = useOpenMenu();
 
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const handleOpenMenu = () => {
-    setIsOpenMenu(true);
-  };
-  const handleCloseMenu = () => {
-    setIsOpenMenu(false);
-  };
   return (
     <AppBar position="static">
       {isAuth ? (
@@ -36,32 +32,15 @@ const Header = () => {
         </Toolbar>
       ) : (
         <Toolbar>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              m: '0 auto'
-            }}
-          >
+          <ToolbarBox>
             <AppTabs
-              tabsData={[
-                {
-                  label: 'LOGIN',
-                  id: 16,
-                  value: `/${routes.LOGIN}`
-                },
-                {
-                  label: 'SIGNUP',
-                  id: 17,
-                  value: `/${routes.SIGNUP}`
-                }
-              ]}
+              tabsData={tabsData}
               textColor="secondary"
               indicatorColor="secondary"
               //don't know what to write in type
               type={'??'}
             />
-          </Box>
+          </ToolbarBox>
         </Toolbar>
       )}
     </AppBar>
