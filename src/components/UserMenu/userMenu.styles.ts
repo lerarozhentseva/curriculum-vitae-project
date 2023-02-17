@@ -1,3 +1,5 @@
+import { Box, styled } from '@mui/material';
+
 export const MenuPaperProps = {
   overflow: 'visible',
   width: '250px',
@@ -15,3 +17,8 @@ export const MenuPaperProps = {
     transform: 'translateY(-50%) rotate(45deg)'
   }
 };
+
+export const StyledMenuBox = styled(Box)({
+  display: 'flex',
+  alignItems: 'center'
+});

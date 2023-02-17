@@ -1,5 +1,5 @@
-import { Alert } from '@mui/material';
 import React from 'react';
+import { StyledAlert } from '@authPages/components/NotificationAlert/notificationAlert.styles';
 
 export type NotificationAlertProps = {
   severity?: 'success' | 'error';
@@ -8,9 +8,9 @@ export type NotificationAlertProps = {
 
 const NotificationAlert = ({ severity, text }: NotificationAlertProps) => {
   return (
-    <Alert sx={{ width: '435px', m: '0 auto' }} variant="outlined" severity={severity}>
+    <StyledAlert variant="outlined" severity={severity}>
       {text}
-    </Alert>
+    </StyledAlert>
   );
 };
 

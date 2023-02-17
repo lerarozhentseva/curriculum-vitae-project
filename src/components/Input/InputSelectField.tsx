@@ -1,6 +1,6 @@
 import { MenuItem, SxProps, TextField } from '@mui/material';
 import React from 'react';
-import './InputField.css';
+import { StyledTextField } from '@components/Input/InputField.styles';
 
 export type InputSelectProps = {
   defaultValue?: string;
@@ -14,23 +14,27 @@ export type InputSelectProps = {
   data: Array<{ id: number; name: string }>;
 };
 
-const InputSelectField = ({ label, size = 'medium', data, ...inputProps }: InputSelectProps) => {
+const InputSelectField = ({
+  label,
+  size = 'medium',
+  sx,
+  data,
+  ...inputProps
+}: InputSelectProps) => {
   return (
-    <TextField
+    <StyledTextField
       {...inputProps}
       select
       fullWidth
       size={size}
       margin="normal"
       label={label}
-      sx={{
-        border: 0
-      }}
+      sx={sx}
     >
       {data.map(({ id, name }) => (
         <MenuItem key={id}>{name}</MenuItem>
       ))}
-    </TextField>
+    </StyledTextField>
   );
 };
 

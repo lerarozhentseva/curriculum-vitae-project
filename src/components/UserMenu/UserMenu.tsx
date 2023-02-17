@@ -2,13 +2,15 @@ import { Box, Divider, IconButton, Menu, Typography, Avatar } from '@mui/materia
 import { AccountCircle, Settings as SettingsIcon, Logout as LogoutIcon } from '@mui/icons-material';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '@graphql/auth/authService';
-import { MenuPaperProps } from '@components/UserMenu/userMenu.styles';
+import { MenuPaperProps, StyledMenuBox } from '@components/UserMenu/userMenu.styles';
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const navigate = useNavigate();
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,7 +28,7 @@ const UserMenu = () => {
   const avatarLetter = getUserEmail[0].toUpperCase();
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <StyledMenuBox>
       <Typography>{getUserEmail}</Typography>
       <IconButton
         size="large"
@@ -48,7 +50,7 @@ const UserMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={() => navigate('/profile')}>
           <AccountCircle sx={{ pr: 1 }} /> Profile
         </MenuItem>
         <MenuItem onClick={handleCloseMenu}>
@@ -59,7 +61,7 @@ const UserMenu = () => {
           <LogoutIcon sx={{ pr: 1 }} /> LogOut
         </MenuItem>
       </Menu>
-    </Box>
+    </StyledMenuBox>
   );
 };
 

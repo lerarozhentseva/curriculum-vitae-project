@@ -1,14 +1,10 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import {
-  Close as CloseIcon,
-  Translate as TranslateIcon,
-  Group as GroupIcon
-} from '@mui/icons-material';
+import { Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
 import { MenuList, Box } from '@mui/material';
+import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
 import { routes } from '@route/routeConstants';
-import { DrawerBox, DrawerToolbar } from '@components/SideMenu/sideMenu.styles';
+import { StyledDrawerBox, StyledDrawerToolbar } from '@components/SideMenu/sideMenu.styles';
 import SideMenuItem from '@components/SideMenu/MenuItemSide';
 
 interface ISideMenuProps {
@@ -23,21 +19,16 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
 
   return (
     <Drawer anchor="left" open={open} onClick={handleCloseMenu}>
-      <DrawerBox>
-        <DrawerToolbar>
-          <IconButton
-            onClick={handleCloseMenu}
-            sx={{
-              color: 'secondary.main'
-            }}
-          >
+      <StyledDrawerBox>
+        <StyledDrawerToolbar>
+          <StyledIconButton onClick={handleCloseMenu}>
             <CloseIcon />
-          </IconButton>
-        </DrawerToolbar>
+          </StyledIconButton>
+        </StyledDrawerToolbar>
         <Box>
           <MenuList>
             <SideMenuItem path={`/${routes.EMPLOYEES}`}>
-              <GroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
+              <StyledGroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
               Employees
             </SideMenuItem>
             {/*<SideMenuItem path={}>Projects</SideMenuItem>*/}
@@ -52,7 +43,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
             {/*</SideMenuItem>*/}
           </MenuList>
         </Box>
-      </DrawerBox>
+      </StyledDrawerBox>
     </Drawer>
   );
 };

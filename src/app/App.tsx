@@ -12,6 +12,7 @@ import { routes } from '@route/routeConstants';
 import { PrivateRoute } from '@routeComponents/PrivateRoute';
 import theme from '@theme/theme';
 import { PublicRoute } from '@routeComponents/PublicRoute';
+import ProfilePage from '@pages/ProfilePage/ProfilePage';
 
 const App: FC = (): JSX.Element => {
   const isAuth = useAuth();
@@ -52,6 +53,8 @@ const App: FC = (): JSX.Element => {
               path={routes.EMPLOYEES}
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
+
+            <Route path={routes.PROFILE} element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>} />
           </Routes>
         </Router>
       </ApolloProvider>

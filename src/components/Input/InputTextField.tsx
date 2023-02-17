@@ -1,6 +1,6 @@
 import React from 'react';
 import { SxProps, TextField } from '@mui/material';
-import './InputField.css';
+import { StyledTextField } from './InputField.styles';
 
 export type InputProps = {
   inputType: string;
@@ -34,7 +34,7 @@ const InputTextField = ({
 }: InputProps) => {
   const { endAdornment, startAdornment } = inputProps;
   return (
-    <TextField
+    <StyledTextField
       name={name}
       helperText={helperText}
       label={name}

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { DocumentNode, useLazyQuery, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { Typography, InputAdornment, CircularProgress, Grid } from '@mui/material';
+import { InputAdornment, CircularProgress } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ILoginResult, ISignupResult } from '@graphql/auth/IAuthResult';
 import { LoginQuery } from '@graphql/auth/query';
@@ -10,7 +10,12 @@ import { authService } from '@graphql/auth/authService';
 import InputTextField from '@components/Input/InputTextField';
 import MainAuthButton from '@components/Button/MainAuthButton';
 import { routes } from '@route/routeConstants';
-import { PaperContainer } from '@authPages/components/Form/form.styles';
+import {
+  PaperContainer,
+  StyledGridContainer,
+  StyledTypography,
+  StyledCircularProgress
+} from '@authPages/components/Form/form.styles';
 import NotificationAlert from '../NotificationAlert/NotificationAlert';
 
 interface IFormErrors {
@@ -107,19 +112,9 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
 
   return (
     <PaperContainer>
-      <Grid
-        container
-        direction="column"
-        sx={{
-          alignItems: 'center',
-          padding: 2,
-          justifyContent: 'center'
-        }}
-      >
-        <Typography sx={{ mt: 2 }} variant="h4">
-          {title}
-        </Typography>
-        <Typography sx={{ mt: 2 }}>{text}</Typography>
+      <StyledGridContainer container>
+        <StyledTypography variant="h4">{title}</StyledTypography>
+        <StyledTypography>{text}</StyledTypography>
         <form style={{ width: '100%' }} onSubmit={onSubmit}>
           <InputTextField
             inputType="email"
@@ -137,7 +132,9 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
             value={password}
             error={passError}
             helperText={formErrors.password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             sx={{ mb: '30px' }}
             inputProps={{
               endAdornment: (
@@ -148,15 +145,12 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
             }}
           />
           {loading ? (
-            <CircularProgress
-              sx={{ width: '50px', display: 'block', m: '0 auto' }}
-              color="inherit"
-            />
+            <StyledCircularProgress color="inherit" />
           ) : (
             <MainAuthButton name={buttonText} />
           )}
         </form>
-      </Grid>
+      </StyledGridContainer>
       {serverError && (
         <NotificationAlert text="An account with such an email already exists!" severity="error" />
       )}
