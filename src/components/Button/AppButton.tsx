@@ -9,16 +9,7 @@ export type AppButtonProps = {
 
 const AppButton = ({ variant, children, disabled }: AppButtonProps) => {
   return (
-    <Button
-      fullWidth
-      sx={{
-        borderRadius: 0,
-        textTransform: 'none'
-      }}
-      variant={variant}
-      color="secondary"
-      disabled={disabled}
-    >
+    <Button fullWidth variant={variant} color="secondary" disabled={disabled} type="submit">
       {children}
     </Button>
   );

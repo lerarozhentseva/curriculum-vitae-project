@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, SxProps, Tab } from '@mui/material';
 import { TabContext, TabList } from '@mui/lab';
+import { Link, useLocation } from 'react-router-dom';
 
 export type AppTabsProps = {
   tabsData: Array<{ label: string; id: number; value: string }>;
@@ -11,20 +12,26 @@ export type AppTabsProps = {
 };
 
 const AppTabs = ({ tabsData, textColor, indicatorColor, type, ...tabsProps }: AppTabsProps) => {
-  const [value, setValue] = useState('1');
+  const location = useLocation();
   return (
-    <TabContext value={value}>
+    <TabContext value={location.pathname}>
       <Box>
         <TabList
           {...tabsProps}
           textColor={textColor}
           indicatorColor={indicatorColor}
           aria-label={type}
-          onChange={(e, newValue) => setValue(newValue)}
         >
           {Array.isArray(tabsData) &&
             tabsData?.map(({ id, label, value }) => (
-              <Tab key={id} label={label} value={value}></Tab>
+              <Tab
+                key={id}
+                label={label}
+                value={value}
+                sx={{ color: 'white' }}
+                component={Link}
+                to={value}
+              ></Tab>
             ))}
         </TabList>
       </Box>
