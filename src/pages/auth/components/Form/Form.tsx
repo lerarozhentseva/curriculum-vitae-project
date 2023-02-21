@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { InputAdornment, CircularProgress } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ILoginResult, ISignupResult } from '@graphql/auth/IAuthResult';
-import { LoginQuery } from '@graphql/auth/query';
-import { SIGNUP } from '@graphql/auth/mutation';
+import { LoginQuery } from '@graphql/auth/LoginQuery';
+import { RegisterMutation } from '@graphql/auth/RegisterMutation';
 import { authService } from '@graphql/auth/authService';
 import InputTextField from '@components/Input/InputTextField';
 import MainAuthButton from '@components/Button/MainAuthButton';
@@ -47,7 +47,7 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
   const { title, text, buttonText } = formType;
 
   const [login, { loading: loginLoading }] = useLazyQuery<ILoginResult>(LoginQuery);
-  const [signup, { loading: signupLoading }] = useMutation<ISignupResult>(SIGNUP);
+  const [signup, { loading: signupLoading }] = useMutation<ISignupResult>(RegisterMutation);
   const loading = queryAuth === LoginQuery ? loginLoading : signupLoading;
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
           authService.addUserToStorage(data.login.user, data.login.access_token);
           navigate(`/${routes.EMPLOYEES}`);
         }
-      } else if (queryAuth === SIGNUP) {
+      } else if (queryAuth === RegisterMutation) {
         const { data } = await signup({ variables: { email, password } });
         if (data) {
           authService.addUserToStorage(data.signup.user, data.signup.access_token);
