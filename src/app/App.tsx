@@ -25,7 +25,6 @@ const App: FC = (): JSX.Element => {
             <Route
               index
               element={
-                //to go to the necessary page when starting application
                 isAuth ? (
                   <Navigate to={`/${routes.EMPLOYEES}`} />
                 ) : (
