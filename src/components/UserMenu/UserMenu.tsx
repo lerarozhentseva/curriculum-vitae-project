@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Menu, Typography, Avatar } from '@mui/material';
+import { Divider, IconButton, Menu, Typography, Avatar } from '@mui/material';
 import { AccountCircle, Settings as SettingsIcon, Logout as LogoutIcon } from '@mui/icons-material';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
@@ -23,13 +23,16 @@ const UserMenu = () => {
     authService.clearStorage();
   };
 
-  // @ts-ignore
-  const getUserEmail = JSON.parse(localStorage.getItem('user')).email;
-  const avatarLetter = getUserEmail[0].toUpperCase();
+  const getUserEmail = (): string => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.email || '';
+  };
+  const email = getUserEmail();
+  const avatarLetter = email[0].toUpperCase();
 
   return (
     <StyledMenuBox>
-      <Typography>{getUserEmail}</Typography>
+      <Typography>{email}</Typography>
       <IconButton
         size="large"
         aria-label="account of current user"

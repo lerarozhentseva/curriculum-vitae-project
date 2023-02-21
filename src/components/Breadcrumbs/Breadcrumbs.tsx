@@ -3,15 +3,7 @@ import { Breadcrumbs } from '@mui/material';
 import { NavigateNext as NavigateNextIcon, Home as HomeIcon } from '@mui/icons-material';
 import { StyledLink, StyledBreadcrumbsBox } from '@components/Breadcrumbs/breadcrumbs.styles';
 import { routes } from '@route/routeConstants';
-
-const pages = [
-  { path: '/employees', name: 'Employee' },
-  { path: '/profile', name: 'Profile' }
-];
-
-interface BreadcrumbProps {
-  currentPath: string;
-}
+import { pages, BreadcrumbProps } from '@components/componentUtils/utils';
 
 export default function Breadcrumb({ currentPath }: BreadcrumbProps) {
   const currentPage = pages.find((page) => page.path === currentPath);

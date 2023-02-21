@@ -21,7 +21,7 @@ import {
   IFormState,
   LoginOrSignupResult,
   IFormErrors
-} from '@authPages/utils/interface';
+} from '@authPages/authUtils/interface';
 import NotificationAlert from '../NotificationAlert/NotificationAlert';
 
 const Form: FC<FormProps> = ({ formType, queryAuth }) => {

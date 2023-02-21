@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { RegisterMutation } from '@graphql/auth/RegisterMutation';
-import { SignUpFormType } from '@authPages/utils/constants';
+import { SignUpFormType } from '@authPages/authUtils/constants';
 import Header from '@components/Header/Header';
 import Form from '../components/Form/Form';
 
