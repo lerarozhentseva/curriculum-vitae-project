@@ -1,8 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuth } from '@hooks/useAuthHook';
-import useOpenMenu from '@hooks/useOpenMenu';
+import { useAuth, useOpenMenu } from '@hooks/index';
 import { tabsData } from '@components/componentUtils/utils';
 import { StyledBox, StyledIconButton, StyledToolbar } from '@components/Header/header.styles';
 import UserMenu from '../UserMenu/UserMenu';
