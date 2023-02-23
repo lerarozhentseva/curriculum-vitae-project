@@ -37,25 +37,42 @@ const useSendForm = (queryAuth: DocumentNode) => {
     setHidePassword(!hidePassword);
   };
 
-  const validate = () => {
-    const validationErrors: IFormErrors = { email: '', password: '' };
-    let emailError = false;
-    let passError = false;
-
+  const validateEmail = (email: string) => {
+    const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (!email) {
-      validationErrors.email = 'Email is required';
-      emailError = true;
+      return 'Email is required';
+    } else if (!re.test(email)) {
+      return 'Email is invalid';
+    }
+    return '';
+  };
+
+  const validatePassword = (password: string) => {
+    if (!password) {
+      return 'Password is required';
+    } else if (password.length < 6) {
+      return 'Password must have at least 6 characters';
+    }
+    return '';
+  };
+
+  const validateForm = () => {
+    const validationErrors: IFormErrors = { email: '', password: '' };
+    const emailError = validateEmail(email);
+    const passError = validatePassword(password);
+
+    if (emailError) {
+      validationErrors.email = emailError;
     }
 
-    if (!password || password.length < 6) {
-      validationErrors.password = 'Password is required and must have at least 6 characters';
-      passError = true;
+    if (passError) {
+      validationErrors.password = passError;
     }
 
     setFormState({
       ...formState,
-      emailError,
-      passError,
+      emailError: !!emailError,
+      passError: !!passError,
       formErrors: validationErrors
     });
 
@@ -68,7 +85,7 @@ const useSendForm = (queryAuth: DocumentNode) => {
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    validate();
+    validateForm();
     try {
       const { data } = await (queryAuth === LoginQuery
         ? login({ variables: { email, password } })
