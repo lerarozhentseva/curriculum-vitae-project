@@ -19,7 +19,6 @@ const App: FC = (): JSX.Element => {
       <ApolloProvider client={client}>
         <Router>
           <Routes>
-            <Route path={routes.MAIN} element={<Navigate to={routes.LOGIN} />} />
             <Route
               path={routes.LOGIN}
               element={
@@ -41,6 +40,7 @@ const App: FC = (): JSX.Element => {
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
             <Route path={routes.PROFILE} element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>} />
+            <Route path="*" element={<Navigate to={routes.EMPLOYEES} />} />
           </Routes>
         </Router>
       </ApolloProvider>

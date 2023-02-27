@@ -1,5 +1,5 @@
-import useAuth from '@hooks/useAuthHook';
-import useOpenMenu from '@hooks/useOpenMenu';
-import useSendForm from '@hooks/useSendForm';
+import useAuth from './useAuthHook';
+import useOpenMenu from './useOpenMenu';
+import useSendForm from './useSendForm';
 
 export { useSendForm, useAuth, useOpenMenu };
