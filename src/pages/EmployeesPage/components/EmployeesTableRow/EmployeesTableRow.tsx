@@ -34,7 +34,7 @@ const EmployeesTableRow: FC<IEmpoyeesTableRowProps> = ({ user, isLoading }) => {
       <TableCell>{tryShow(user?.department_name, 'text')}</TableCell>
       <TableCell>{tryShow(user?.position_name, 'text')}</TableCell>
       <TableCell>
-        <EmployeesTableRowDisclosure />
+        <EmployeesTableRowDisclosure userId={user?.id ?? ''} />
       </TableCell>
     </TableRow>
   );

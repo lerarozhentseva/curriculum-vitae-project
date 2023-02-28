@@ -1,8 +1,24 @@
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { MoreVert } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { MouseEvent, useCallback, useState } from 'react';
+import { MouseEvent, useCallback, useState, FC } from 'react';
+import {
+  IDeleteUserMutationParameters,
+  IDeleteUserMutationReturnValue
+} from '@graphql/users/DeleteUserMutation.types';
+import { DeleteUserMutation } from '@graphql/users/DeleteUserMutation';
+import { authService } from '@graphql/auth/authService';
+import { IUser } from '@graphql/interfaces/IUser';
+import { IEmployeesTableRowDisclosureProps } from '.';
 
-const EmployeesTableRowDisclosure = () => {
+const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ userId }) => {
+  const [deleteAction, { loading }] = useMutation<
+    IDeleteUserMutationReturnValue,
+    IDeleteUserMutationParameters
+  >(DeleteUserMutation);
+
+  const user = useReactiveVar(authService.user$);
+
   const [anchor, setAnchor] = useState<Element | null>(null);
 
   const onOpen = useCallback((e: MouseEvent) => {
@@ -11,6 +27,14 @@ const EmployeesTableRowDisclosure = () => {
 
   const onClose = useCallback(() => {
     setAnchor(null);
+  }, []);
+
+  const deleteUser = useCallback(async (id: IUser['id']) => {
+    try {
+      await deleteAction({ variables: { id } });
+    } finally {
+      onClose();
+    }
   }, []);
 
   return (
@@ -26,7 +50,9 @@ const EmployeesTableRowDisclosure = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>Delete User</MenuItem>
+        <MenuItem disabled={user?.role !== 'admin'} onClick={() => deleteUser(userId)}>
+          Delete User
+        </MenuItem>
       </Menu>
     </>
   );
