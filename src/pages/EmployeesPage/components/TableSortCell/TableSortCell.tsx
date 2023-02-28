@@ -1,11 +1,13 @@
-import { TableCell, TableSortLabel } from '@mui/material';
 import { FC } from 'react';
-import { ITableSortCellProps } from '.';
+import { TableCell, TableSortLabel } from '@mui/material';
+import { TableSortField, ITableSortCellProps } from '.';
 
 const TableSortCell: FC<ITableSortCellProps> = ({ children, cycleRules, rules, field }) => {
   return (
-    <TableCell onClick={() => cycleRules(field)}>
-      {children}
+    <TableCell>
+      <TableSortField disableRipple onClick={() => cycleRules(field)}>
+        {children}
+      </TableSortField>
       <TableSortLabel active={rules.field === field} direction={rules.order ? 'desc' : 'asc'} />
     </TableCell>
   );

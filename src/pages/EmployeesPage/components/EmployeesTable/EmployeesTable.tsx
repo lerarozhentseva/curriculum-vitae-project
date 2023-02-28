@@ -1,8 +1,14 @@
 import { FC, useCallback, useMemo, useState } from 'react';
-import { Table, TableBody } from '@mui/material';
+import { TableBody } from '@mui/material';
 import { EmployeesTableRow } from '@pages/EmployeesPage/components/EmployeesTableRow';
 import { EmployeesTableHead } from '@pages/EmployeesPage/components/EmployeesTableHead';
-import { IEmployeesTableProps, IFlattenedUser, ISortingRules, SortingOrder } from '.';
+import {
+  IEmployeesTableProps,
+  IFlattenedUser,
+  ISortingRules,
+  SortingOrder,
+  EmployeesTableUI
+} from '.';
 
 const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
   const [sortingRules, setSortingRules] = useState<ISortingRules>({
@@ -41,7 +47,7 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
   }, []);
 
   return (
-    <Table>
+    <EmployeesTableUI>
       <EmployeesTableHead sortingRules={sortingRules} cycleSortingRules={cycleSortingRules} />
       <TableBody>
         {isLoading
@@ -52,7 +58,7 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
               <EmployeesTableRow isLoading={isLoading} key={user.id} user={user} />
             ))}
       </TableBody>
-    </Table>
+    </EmployeesTableUI>
   );
 };
 
