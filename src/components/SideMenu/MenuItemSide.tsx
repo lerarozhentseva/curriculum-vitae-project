@@ -1,7 +1,7 @@
 import { MenuItem } from '@mui/material';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import useOpenMenu from '@hooks/useOpenMenu';
+import { useOpenMenu } from '@hooks/index';
 
 interface MenuProps {
   children: React.ReactNode | JSX.Element;
