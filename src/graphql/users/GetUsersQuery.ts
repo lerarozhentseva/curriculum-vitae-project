@@ -6,6 +6,7 @@ export const GetUsersQuery = gql`
       id
       email
       profile {
+        full_name
         first_name
         last_name
         avatar
