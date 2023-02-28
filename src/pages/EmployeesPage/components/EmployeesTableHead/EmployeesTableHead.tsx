@@ -30,6 +30,7 @@ const EmployeesTableHead: FC<IEmployeesTableHeadProps> = ({ sortingRules, cycleS
         <TableSortCell field="position_name" {...cellProps}>
           Position
         </TableSortCell>
+        <TableCell></TableCell>
       </TableRow>
     </TableHead>
   );

@@ -1,5 +1,6 @@
-import { Avatar, AvatarProps, Skeleton, SkeletonProps, TableCell, TableRow } from '@mui/material';
 import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { Avatar, AvatarProps, Skeleton, SkeletonProps, TableCell, TableRow } from '@mui/material';
+import { EmployeesTableRowDisclosure } from '@pages/EmployeesPage/components/EmployeesTableRowDisclosure';
 import { IEmpoyeesTableRowProps } from '.';
 
 const EmployeesTableRow: FC<IEmpoyeesTableRowProps> = ({ user, isLoading }) => {
@@ -32,6 +33,9 @@ const EmployeesTableRow: FC<IEmpoyeesTableRowProps> = ({ user, isLoading }) => {
       <TableCell>{tryShow(user?.email, 'text')}</TableCell>
       <TableCell>{tryShow(user?.department_name, 'text')}</TableCell>
       <TableCell>{tryShow(user?.position_name, 'text')}</TableCell>
+      <TableCell>
+        <EmployeesTableRowDisclosure />
+      </TableCell>
     </TableRow>
   );
 };
