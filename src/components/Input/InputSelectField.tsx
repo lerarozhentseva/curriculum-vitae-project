@@ -11,7 +11,7 @@ export type InputSelectProps = {
   color?: 'primary' | 'secondary';
   sx?: SxProps;
   helperText?: string;
-  data: Array<{ id: number; name: string }>;
+  data: Array<{ id: number; name: string; value?: string | number | readonly string[] }>;
 };
 
 const InputSelectField = ({
@@ -31,8 +31,10 @@ const InputSelectField = ({
       label={label}
       sx={sx}
     >
-      {data.map(({ id, name }) => (
-        <MenuItem key={id}>{name}</MenuItem>
+      {data.map(({ id, name, value }) => (
+        <MenuItem value={value} key={id}>
+          {name}
+        </MenuItem>
       ))}
     </StyledTextField>
   );
