@@ -9,13 +9,16 @@ import {
 import { DeleteUserMutation } from '@graphql/users/DeleteUserMutation';
 import { authService } from '@graphql/auth/authService';
 import { IUser } from '@graphql/interfaces/IUser';
+import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
 import { IEmployeesTableRowDisclosureProps } from '.';
 
 const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ userId }) => {
   const [deleteAction, { loading }] = useMutation<
     IDeleteUserMutationReturnValue,
     IDeleteUserMutationParameters
-  >(DeleteUserMutation);
+  >(DeleteUserMutation, {
+    refetchQueries: [{ query: GetUsersQuery }, 'GetUsers']
+  });
 
   const user = useReactiveVar(authService.user$);
 
