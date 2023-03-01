@@ -12,3 +12,12 @@ export const tabsData = [
     value: `/${routes.SIGNUP}`
   }
 ];
+
+export const pages = [
+  { path: '/employees', name: 'Employee' },
+  { path: '/profile', name: 'Profile' }
+];
+
+export interface BreadcrumbProps {
+  currentPath: string;
+}
