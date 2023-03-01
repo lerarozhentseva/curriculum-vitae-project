@@ -1,7 +1,7 @@
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { MoreVert } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { MouseEvent, useCallback, useState, FC } from 'react';
+import { useCallback, FC } from 'react';
 import {
   IDeleteUserMutationParameters,
   IDeleteUserMutationReturnValue
@@ -10,6 +10,7 @@ import { DeleteUserMutation } from '@graphql/users/DeleteUserMutation';
 import { authService } from '@graphql/auth/authService';
 import { IUser } from '@graphql/interfaces/IUser';
 import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
+import useDisclosure from '@hooks/useDisclosure';
 import { IEmployeesTableRowDisclosureProps } from '.';
 
 const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ userId }) => {
@@ -22,15 +23,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
 
   const user = useReactiveVar(authService.user$);
 
-  const [anchor, setAnchor] = useState<Element | null>(null);
-
-  const onOpen = useCallback((e: MouseEvent) => {
-    setAnchor(e.currentTarget);
-  }, []);
-
-  const onClose = useCallback(() => {
-    setAnchor(null);
-  }, []);
+  const { anchor, isOpen, onOpen, onClose } = useDisclosure();
 
   const deleteUser = useCallback(async (id: IUser['id']) => {
     try {
@@ -47,7 +40,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
       </IconButton>
       <Menu
         anchorEl={anchor}
-        open={!!anchor}
+        open={isOpen}
         onClose={onClose}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
