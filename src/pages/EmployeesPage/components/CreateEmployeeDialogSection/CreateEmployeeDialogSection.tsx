@@ -1,8 +1,12 @@
-import { Children, FC, ReactNode } from 'react';
+import { Children, FC } from 'react';
 import { Grid } from '@mui/material';
-import { CreateEmployeeDialogSectionBox, CreateEmployeeDialogSectionHeading } from '.';
+import {
+  CreateEmployeeDialogSectionBox,
+  CreateEmployeeDialogSectionHeading,
+  ICreateEmployeeDialogSectionProps
+} from '.';
 
-const CreateEmployeeDialogSection: FC<{ children: ReactNode; heading: string }> = ({
+const CreateEmployeeDialogSection: FC<ICreateEmployeeDialogSectionProps> = ({
   children,
   heading
 }) => {
