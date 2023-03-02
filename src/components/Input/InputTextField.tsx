@@ -18,6 +18,7 @@ export type InputProps = {
     endAdornment?: React.ReactNode;
     startAdornment?: React.ReactNode;
   };
+  required?: boolean;
 };
 
 const InputTextField = ({
@@ -31,7 +32,8 @@ const InputTextField = ({
   onChange,
   sx,
   label,
-  inputProps = {}
+  inputProps = {},
+  required
 }: InputProps) => {
   const { endAdornment, startAdornment } = inputProps;
   return (
@@ -49,6 +51,7 @@ const InputTextField = ({
       InputProps={{ endAdornment, startAdornment }}
       margin="normal"
       sx={sx}
+      required={required}
     />
   );
 };
