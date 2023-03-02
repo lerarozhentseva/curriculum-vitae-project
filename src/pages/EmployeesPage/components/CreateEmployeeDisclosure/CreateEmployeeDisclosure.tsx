@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
+import { MouseEvent, useCallback } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { EMPLOYEE_ROLES, INITIAL_FORM_DATA } from '@pages/EmployeesPage/utils';
@@ -18,6 +18,8 @@ import {
   ICreateUserMutationReturnType
 } from '@graphql/users/CreateUserMutation.types';
 import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
+import useNestedFormData from '@hooks/useNestedFormData';
+import useAdaptToSelect from '@hooks/useAdaptToSelect';
 
 const CreateEmployeeDisclosure = () => {
   const [getDepartments, { data: departmentsData }] = useLazyQuery<{
@@ -32,46 +34,15 @@ const CreateEmployeeDisclosure = () => {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
-
-  const onFormFieldChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const dummy = { ...formData };
-      const fields = e.target.name.split('.');
-      let node: any = dummy;
-
-      for (let i = 0; i < fields.length - 1; i++) node = node[fields[i]];
-      node[fields[fields.length - 1]] = e.target.value;
-
-      setFormData(dummy);
-    },
-    [formData]
-  );
+  const { formData, onFormFieldChange, resetFormData } = useNestedFormData(INITIAL_FORM_DATA);
 
   const open = useCallback(async (e: MouseEvent) => {
     onOpen(e);
     await Promise.all([getDepartments(), getPositions()]);
   }, []);
 
-  const departments = useMemo(() => {
-    return (
-      departmentsData?.departments.map((department) => ({
-        ...department,
-        id: +department.id,
-        value: department.id
-      })) ?? []
-    );
-  }, [departmentsData]);
-
-  const positions = useMemo(() => {
-    return (
-      positionsData?.positions.map((position) => ({
-        ...position,
-        id: +position.id,
-        value: position.id
-      })) ?? []
-    );
-  }, [positionsData]);
+  const departments = useAdaptToSelect(departmentsData?.departments, 'id');
+  const positions = useAdaptToSelect(positionsData?.positions, 'id');
 
   const createUser = useCallback(async () => {
     const { email, password } = formData.auth;
@@ -93,7 +64,7 @@ const CreateEmployeeDisclosure = () => {
 
     await createAction({ variables });
     onClose();
-    setFormData(INITIAL_FORM_DATA);
+    resetFormData();
   }, [formData]);
 
   return (
