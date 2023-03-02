@@ -20,6 +20,8 @@ import {
 import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
 import useNestedFormData from '@hooks/useNestedFormData';
 import useAdaptToSelect from '@hooks/useAdaptToSelect';
+import Toast from '@components/Toast/Toast';
+import useRequest from '@hooks/useRequest';
 
 const CreateEmployeeDisclosure = () => {
   const [getDepartments, { data: departmentsData }] = useLazyQuery<{
@@ -28,10 +30,10 @@ const CreateEmployeeDisclosure = () => {
   const [getPositions, { data: positionsData }] = useLazyQuery<{
     positions: IPosition[];
   }>(GetPositionsQuery);
-  const [createAction] = useMutation<ICreateUserMutationReturnType, ICreateUserMutationParameters>(
-    CreateUserMutation,
-    { refetchQueries: [{ query: GetUsersQuery }, 'GetUsers'] }
-  );
+  const [createAction, { error: nativeError }] = useMutation<
+    ICreateUserMutationReturnType,
+    ICreateUserMutationParameters
+  >(CreateUserMutation, { refetchQueries: [{ query: GetUsersQuery }, 'GetUsers'] });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { formData, onFormFieldChange, resetFormData } = useNestedFormData(INITIAL_FORM_DATA);
@@ -50,7 +52,8 @@ const CreateEmployeeDisclosure = () => {
     const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
-    if (!trimmedEmail || !trimmedPassword || !re.test(trimmedEmail) || password.length < 6) return;
+    if (!trimmedEmail || !trimmedPassword || !re.test(trimmedEmail) || password.length < 6)
+      throw new Error('Some of the fields are not valid');
 
     const variables: ICreateUserMutationParameters = {
       user: {
@@ -67,8 +70,11 @@ const CreateEmployeeDisclosure = () => {
     resetFormData();
   }, [formData]);
 
+  const [createUserRequest, error, clearError] = useRequest(createUser, nativeError);
+
   return (
     <>
+      <Toast severity="error" message={error} onClose={clearError} />
       <EmployeeCreationModalButton onClick={open}>Create Employee</EmployeeCreationModalButton>
       <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="lg">
         <DialogTitle textAlign="center">Create New Employee</DialogTitle>
@@ -135,7 +141,7 @@ const CreateEmployeeDisclosure = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={createUser}>Create</Button>
+          <Button onClick={createUserRequest}>Create</Button>
         </DialogActions>
       </Dialog>
     </>

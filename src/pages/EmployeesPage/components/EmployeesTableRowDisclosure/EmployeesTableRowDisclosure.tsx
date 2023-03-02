@@ -12,10 +12,12 @@ import { authService } from '@graphql/auth/authService';
 import { IUser } from '@graphql/interfaces/IUser';
 import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
 import useDisclosure from '@hooks/useDisclosure';
+import useRequest from '@hooks/useRequest';
+import Toast from '@components/Toast/Toast';
 import { IEmployeesTableRowDisclosureProps } from '.';
 
 const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ userId }) => {
-  const [deleteAction, { loading }] = useMutation<
+  const [deleteAction, { error: nativeError }] = useMutation<
     IDeleteUserMutationReturnValue,
     IDeleteUserMutationParameters
   >(DeleteUserMutation, {
@@ -28,19 +30,18 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
   const { anchor, isOpen, onOpen, onClose } = useDisclosure();
 
   const deleteUser = useCallback(async (id: IUser['id']) => {
-    try {
-      await deleteAction({ variables: { id } });
-    } finally {
-      onClose();
-    }
+    await deleteAction({ variables: { id } });
   }, []);
 
   const visitProfile = useCallback(() => {
     router(`/employees/${userId}/profile`);
   }, []);
 
+  const [deleteUserRequest, error, clearError] = useRequest<[IUser['id']]>(deleteUser, nativeError);
+
   return (
     <>
+      <Toast severity="error" message={error} onClose={clearError} />
       <IconButton onClick={onOpen}>
         <MoreVert />
       </IconButton>
@@ -52,7 +53,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={visitProfile}>Profile</MenuItem>
-        <MenuItem disabled={user?.role !== 'admin'} onClick={() => deleteUser(userId)}>
+        <MenuItem disabled={user?.role !== 'admin'} onClick={() => deleteUserRequest(userId)}>
           Delete User
         </MenuItem>
       </Menu>
