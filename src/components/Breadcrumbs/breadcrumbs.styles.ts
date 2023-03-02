@@ -12,6 +12,18 @@ export const StyledLink = styled(Typography)(({ theme }) => ({
   }
 })) as typeof Typography;
 
+export const StyledPrLink = styled(Typography)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  textDecoration: 'none',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  fontSize: '18px',
+  ':hover': {
+    cursor: 'pointer'
+  }
+})) as typeof Typography;
+
 export const StyledBreadcrumbsBox = styled(Box)({
   width: '1000px',
   margin: '30px'

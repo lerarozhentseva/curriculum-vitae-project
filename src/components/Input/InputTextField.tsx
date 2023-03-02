@@ -1,5 +1,5 @@
 import React from 'react';
-import { SxProps, TextField } from '@mui/material';
+import { SxProps } from '@mui/material';
 import { StyledTextField } from './InputField.styles';
 
 export type InputProps = {
