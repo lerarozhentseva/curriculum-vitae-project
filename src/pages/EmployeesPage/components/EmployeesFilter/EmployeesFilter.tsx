@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { Search } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
-import { IEmployeesFilterProps } from '.';
-import { EmployeesFilterTextField } from '.';
+import { IEmployeesFilterProps, EmployeesFilterTextField } from '.';
 
 const EmployeesFilter: FC<IEmployeesFilterProps> = ({ query, onChange }) => {
   return (

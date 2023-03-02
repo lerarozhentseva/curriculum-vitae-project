@@ -1,4 +1,4 @@
-import { ButtonBase, styled, TableCell, tableCellClasses } from '@mui/material';
+import { ButtonBase, styled } from '@mui/material';
 
 export const TableSortField = styled(ButtonBase)({
   fontWeight: 'bold',
