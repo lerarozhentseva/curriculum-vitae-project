@@ -2,6 +2,7 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import { MoreVert } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useCallback, FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   IDeleteUserMutationParameters,
   IDeleteUserMutationReturnValue
@@ -22,6 +23,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
   });
 
   const user = useReactiveVar(authService.user$);
+  const router = useNavigate();
 
   const { anchor, isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,6 +33,10 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
     } finally {
       onClose();
     }
+  }, []);
+
+  const visitProfile = useCallback(() => {
+    router(`/employees/${userId}/profile`);
   }, []);
 
   return (
@@ -45,7 +51,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>Profile</MenuItem>
+        <MenuItem onClick={visitProfile}>Profile</MenuItem>
         <MenuItem disabled={user?.role !== 'admin'} onClick={() => deleteUser(userId)}>
           Delete User
         </MenuItem>
