@@ -16,7 +16,6 @@ const getAvatarLetter = (user?: IUser) => {
   if (!user) return '';
 
   const { first_name, last_name } = user.profile;
-  console.log(user.profile);
 
   if (first_name && last_name) {
     return `${first_name[0].toUpperCase()}${last_name[0].toUpperCase()}`;
