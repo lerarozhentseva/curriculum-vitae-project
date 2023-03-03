@@ -11,8 +11,17 @@ export const GetUsersQuery = gql`
         last_name
         avatar
       }
+      department {
+        id
+        name
+      }
+      position {
+        id
+        name
+      }
       department_name
       position_name
+      role
     }
   }
 `;

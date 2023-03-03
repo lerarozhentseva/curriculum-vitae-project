@@ -14,9 +14,10 @@ import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
 import useDisclosure from '@hooks/useDisclosure';
 import useRequest from '@hooks/useRequest';
 import Toast from '@components/Toast/Toast';
+import { UpdateEmployeeDisclosure } from '@pages/EmployeesPage/components/UpdateEmployeeDisclosure';
 import { IEmployeesTableRowDisclosureProps } from '.';
 
-const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ userId }) => {
+const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ user }) => {
   const [deleteAction, { error: nativeError }] = useMutation<
     IDeleteUserMutationReturnValue,
     IDeleteUserMutationParameters
@@ -24,7 +25,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
     refetchQueries: [{ query: GetUsersQuery }, 'GetUsers']
   });
 
-  const user = useReactiveVar(authService.user$);
+  const authorizedUser = useReactiveVar(authService.user$);
   const router = useNavigate();
 
   const { anchor, isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +35,7 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
   }, []);
 
   const visitProfile = useCallback(() => {
-    router(`/employees/${userId}/profile`);
+    router(`/employees/${user.id}/profile`);
   }, []);
 
   const [deleteUserRequest, error, clearError] = useRequest<[IUser['id']]>(deleteUser, nativeError);
@@ -53,7 +54,11 @@ const EmployeesTableRowDisclosure: FC<IEmployeesTableRowDisclosureProps> = ({ us
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={visitProfile}>Profile</MenuItem>
-        <MenuItem disabled={user?.role !== 'admin'} onClick={() => deleteUserRequest(userId)}>
+        <UpdateEmployeeDisclosure user={user} onParentClose={onClose} />
+        <MenuItem
+          disabled={authorizedUser?.role !== 'admin'}
+          onClick={() => deleteUserRequest(user.id)}
+        >
           Delete User
         </MenuItem>
       </Menu>

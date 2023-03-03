@@ -1,18 +1,13 @@
 import { IProfile } from "./IProfile";
+import { IUpdateUserFormData } from "./IUpdateUserFormData";
 
 interface IAuthInput {
   email: string;
   password: string;
 }
 
-type ProfileInput = Omit<IProfile,'id' | 'created_at' | 'full_name' | 'avatar'>;
-
-export interface ICreateUserFormData {
+export interface ICreateUserFormData extends IUpdateUserFormData {
   auth: IAuthInput;
-  profile: ProfileInput;
-  cvsIds: string[];
-  departmentId: string;
-  positionId: string;
   role: string;
 }
 

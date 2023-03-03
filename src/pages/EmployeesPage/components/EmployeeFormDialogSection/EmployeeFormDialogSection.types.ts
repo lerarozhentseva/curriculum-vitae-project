@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface ICreateEmployeeDialogSectionProps {
+export interface IEmployeeFormDialogSectionProps {
   children: ReactNode;
   heading: string;
 }

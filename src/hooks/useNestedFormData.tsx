@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 
 export default function useNestedFormData<T extends { [x: string]: any }>(data: T) {
-  const [formData, setFormData] = useState(structuredClone(data));
+  const [formData, setFormData] = useState(() => structuredClone(data));
 
   const onFormFieldChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
