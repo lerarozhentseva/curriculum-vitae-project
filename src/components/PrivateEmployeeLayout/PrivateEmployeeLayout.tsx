@@ -15,6 +15,7 @@ export const PrivateEmployeeLayout: FC<PrivateEmployeeLayoutProps> = ({ children
       <Header />
       <Breadcrumb />
       <AppTabs
+        sx={{ ml: 2 }}
         tabsData={profileTabs}
         textColor="secondary"
         indicatorColor="secondary"
