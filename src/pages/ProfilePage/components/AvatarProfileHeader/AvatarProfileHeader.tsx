@@ -1,15 +1,19 @@
 import { Box, Typography } from '@mui/material';
-import { FC } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import { ChangeEvent, FC, useRef } from 'react';
 import { IUser } from '@interfaces/IUser';
 import {
   StyledAvatar,
   StyledBox,
   StyledFileUploadIcon,
-  StyledTypography
+  StyledTypography,
+  StyledAvatarCloseButton
 } from './AvatarProfileHeader.styles';
 
 interface AvatarProfileHeaderProps {
   user?: IUser;
+  deleteAvatar: () => void;
+  uploadAvatar: (event: FileList | null) => void;
 }
 
 const getAvatarLetter = (user?: IUser) => {
@@ -29,20 +33,43 @@ const formatCreateDate = (createDate?: string) => {
   return `A member since ${new Date(+createDate).toDateString()}`;
 };
 
-const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({ user }) => {
+const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({
+  user,
+  deleteAvatar,
+  uploadAvatar
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleInputClick = () => {
+    fileInputRef?.current?.click();
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      uploadAvatar(files);
+    }
+  };
+
   return (
     <>
       <StyledBox>
         <Box>
-          <StyledAvatar alt="avatar">{getAvatarLetter(user)}</StyledAvatar>
+          {user?.profile.avatar && (
+            <StyledAvatarCloseButton onClick={deleteAvatar}>
+              <CloseIcon />
+            </StyledAvatarCloseButton>
+          )}
+          <StyledAvatar src={user?.profile.avatar} alt="avatar">
+            {getAvatarLetter(user)}
+          </StyledAvatar>
         </Box>
-        <form>
+        <form onClick={handleInputClick}>
           <StyledTypography variant="button">
             <StyledFileUploadIcon />
             Upload avatar image
           </StyledTypography>
           <Typography color={'grey'}>png, jpg or gif no more than 0.5MB</Typography>
-          <input type="file" hidden />
+          <input type="file" hidden ref={fileInputRef} onChange={handleInputChange} />
         </form>
       </StyledBox>
       <Typography mt={2} fontSize="25px">{`${user?.profile.first_name || ''} ${user?.profile

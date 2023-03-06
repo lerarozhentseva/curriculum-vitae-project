@@ -1,4 +1,4 @@
-import { Box, Avatar, styled, Typography } from '@mui/material';
+import { Box, Avatar, styled, Typography, Button } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 export const StyledBox = styled(Box)({
@@ -16,9 +16,16 @@ export const StyledAvatar = styled(Avatar)({
 export const StyledTypography = styled(Typography)({
   display: 'flex',
   fontSize: '20px',
-  alignItems: 'center'
+  alignItems: 'center',
+  cursor: 'pointer'
 });
 
 export const StyledFileUploadIcon = styled(FileUploadIcon)({
   marginRight: 1
+});
+
+export const StyledAvatarCloseButton = styled(Button)({
+  marginLeft: '90px',
+  marginBottom: '-10px',
+  borderRadius: '50%'
 });
