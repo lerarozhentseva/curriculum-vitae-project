@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, SxProps } from '@mui/material';
 
 export type AppButtonProps = {
   variant: 'contained' | 'text' | 'outlined';
   children: string;
   disabled?: boolean;
+  sx?: SxProps;
 };
 
-const AppButton = ({ variant, children, disabled }: AppButtonProps) => {
+const AppButton = ({ variant, children, disabled, sx }: AppButtonProps) => {
   return (
-    <Button fullWidth variant={variant} color="secondary" disabled={disabled} type="submit">
+    <Button fullWidth variant={variant} color="secondary" sx={sx} disabled={disabled} type="submit">
       {children}
     </Button>
   );

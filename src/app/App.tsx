@@ -11,7 +11,10 @@ import { routes } from '@route/routeConstants';
 import { PrivateRoute } from '@routeComponents/PrivateRoute';
 import theme from '@theme/theme';
 import { PublicRoute } from '@routeComponents/PublicRoute';
-import ProfilePage from '@pages/ProfilePage/ProfilePage';
+import ProfilePage from '@pages/ProfilePage';
+import ProfileSkillsPage from '@pages/ProfileSkillsPage';
+import ProfileLanguagesPage from '@pages/ProfileLanguagesPage';
+import ProfileCVsPage from '@pages/ProfileCVsPage';
 
 const App: FC = (): JSX.Element => {
   return (
@@ -40,6 +43,18 @@ const App: FC = (): JSX.Element => {
               element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
             />
             <Route path={routes.PROFILE} element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>} />
+            <Route
+              path={routes.EMPLOYEE_SKILLS}
+              element={<PrivateRoute>{<ProfileSkillsPage />}</PrivateRoute>}
+            />
+            <Route
+              path={routes.EMPLOYEE_LANGUAGES}
+              element={<PrivateRoute>{<ProfileLanguagesPage />}</PrivateRoute>}
+            />
+            <Route
+              path={routes.EMPLOYEE_CVS}
+              element={<PrivateRoute>{<ProfileCVsPage />}</PrivateRoute>}
+            />
             <Route path="*" element={<Navigate to={routes.EMPLOYEES} />} />
           </Routes>
         </Router>

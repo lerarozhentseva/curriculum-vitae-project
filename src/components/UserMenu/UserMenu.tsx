@@ -3,6 +3,9 @@ import { AccountCircle, Settings as SettingsIcon, Logout as LogoutIcon } from '@
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery, useReactiveVar } from '@apollo/client';
+import { IUserResult } from '@graphql/user/IUserResult';
+import { UserQuery } from '@graphql/user/UserQuery';
 import { authService } from '@graphql/auth/authService';
 import { MenuPaperProps, StyledMenuBox } from '@components/UserMenu/userMenu.styles';
 
@@ -23,16 +26,27 @@ const UserMenu = () => {
     authService.clearStorage();
   };
 
-  const getUserEmail = (): string => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.email || '';
+  const userData = useReactiveVar(authService.user$);
+  const { data } = useQuery<IUserResult>(UserQuery, {
+    variables: { id: userData?.id }
+  });
+  const user = data?.user;
+
+  const getAvatarLetter = (): string => {
+    if (user?.profile.first_name) {
+      return user?.profile.first_name[0].toUpperCase();
+    }
+    return user?.email[0].toUpperCase() || '';
   };
-  const email = getUserEmail();
-  const avatarLetter = email[0].toUpperCase();
+
+  const getAvatarName = () => {
+    if (user?.profile.first_name && user?.profile.last_name) return `${user?.profile.full_name}`;
+    return user?.email;
+  };
 
   return (
     <StyledMenuBox>
-      <Typography>{email}</Typography>
+      <Typography>{getAvatarName()}</Typography>
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -41,7 +55,7 @@ const UserMenu = () => {
         onClick={handleOpenMenu}
         color="secondary"
       >
-        <Avatar sx={{ backgroundColor: 'secondary.main' }}>{avatarLetter}</Avatar>
+        <Avatar sx={{ backgroundColor: 'secondary.main' }}>{getAvatarLetter()}</Avatar>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -53,7 +67,7 @@ const UserMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={() => navigate('/profile')}>
+        <MenuItem onClick={() => navigate(`/employees/${user?.id}/profile`)}>
           <AccountCircle sx={{ pr: 1 }} /> Profile
         </MenuItem>
         <MenuItem onClick={handleCloseMenu}>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { AlertProps, Snackbar } from '@mui/material';
-import { StyledAlert } from '@pages/auth/components/NotificationAlert/notificationAlert.styles';
+import { StyledAlert } from '@components/NotificationAlert/notificationAlert.styles';
 
 interface IToastProps extends AlertProps {
   onClose: () => void;

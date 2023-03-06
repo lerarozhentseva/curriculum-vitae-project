@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
 import { IUser } from '@graphql/interfaces/IUser';
@@ -13,7 +12,6 @@ import { EmployeesFilter } from './components/EmployeesFilter';
 import { CreateEmployeeDisclosure } from './components/CreateEmployeeDisclosure';
 
 const EmployeesPage = () => {
-  const currentPath = useLocation().pathname;
   const { data, loading, error: nativeError } = useQuery<{ users: IUser[] }>(GetUsersQuery);
 
   const user = useReactiveVar(authService.user$);
@@ -35,7 +33,7 @@ const EmployeesPage = () => {
     <>
       <Toast severity="error" message={error} onClose={clearError} />
       <Header />
-      <Breadcrumb currentPath={currentPath} />
+      <Breadcrumb />
       <EmployeesFilter query={query} onChange={onQueryChange} />
       {user?.role === 'admin' && <CreateEmployeeDisclosure />}
       <EmployeesTable users={filteredUsers} isLoading={loading} />
