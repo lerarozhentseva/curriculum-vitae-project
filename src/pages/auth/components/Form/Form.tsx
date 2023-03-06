@@ -11,7 +11,7 @@ import {
 } from '@authPages/components/Form/form.styles';
 import { FormProps } from '@authPages/authUtils/interface';
 import { useSendForm } from '@hooks/index';
-import NotificationAlert from '../NotificationAlert/NotificationAlert';
+import NotificationAlert from '@components/NotificationAlert/NotificationAlert';
 
 const Form: FC<FormProps> = ({ formType, queryAuth }) => {
   const { title, text, buttonText } = formType;
@@ -69,7 +69,11 @@ const Form: FC<FormProps> = ({ formType, queryAuth }) => {
         </form>
       </StyledGridContainer>
       {formState.serverError && (
-        <NotificationAlert text="An account with such an email already exists!" severity="error" />
+        <NotificationAlert
+          text="An account with such an email already exists!"
+          severity="error"
+          sx={{ width: '425px' }}
+        />
       )}
     </PaperContainer>
   );
