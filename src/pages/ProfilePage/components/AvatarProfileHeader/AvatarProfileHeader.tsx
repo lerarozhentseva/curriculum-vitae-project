@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { ChangeEvent, FC, useRef } from 'react';
+import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
 import { IUser } from '@interfaces/IUser';
+import DragAndDrop from '@pages/ProfilePage/components/DragAndDrop/DragAndDrop';
 import {
   StyledAvatar,
   StyledBox,
@@ -50,6 +51,15 @@ const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({
     }
   };
 
+  useEffect(() => {
+    const handlePrevent = (event: DragEvent) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('dragover', handlePrevent, false);
+    window.removeEventListener('drop', handlePrevent, false);
+  }, []);
+
   return (
     <>
       <StyledBox>
@@ -68,8 +78,13 @@ const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({
             <StyledFileUploadIcon />
             Upload avatar image
           </StyledTypography>
-          <Typography color={'grey'}>png, jpg or gif no more than 0.5MB</Typography>
-          <input type="file" hidden ref={fileInputRef} onChange={handleInputChange} />
+          <DragAndDrop uploadAvatar={uploadAvatar}>
+            <Typography color={'grey'}>png, jpg or gif no more than 0.5MB</Typography>
+            <Typography align={'center'} color={'grey'}>
+              or drag file to this area
+            </Typography>
+            <input type="file" hidden ref={fileInputRef} onChange={handleInputChange} />
+          </DragAndDrop>
         </form>
       </StyledBox>
       <Typography mt={2} fontSize="25px">{`${user?.profile.first_name || ''} ${user?.profile
