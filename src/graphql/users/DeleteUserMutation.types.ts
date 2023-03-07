@@ -1,4 +1,4 @@
-import { IUser } from "@graphql/interfaces/IUser";
+import { IUser } from '@graphql/interfaces/IUser';
 
 export interface IDeleteUserMutationReturnValue {
   affected: number;
