@@ -2,19 +2,16 @@ import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { EMPLOYEE_ROLES, INITIAL_CREATE_DATA } from '@pages/EmployeesPage/utils';
 import { EmployeeFormDialogSection } from '@pages/EmployeesPage/components/EmployeeFormDialogSection';
-import InputTextField from '@components/Input/InputTextField';
-import InputPasswordField from '@components/Input/InputPasswordField';
-import { CreateUserMutation } from '@graphql/users/CreateUserMutation';
-import {
-  ICreateUserMutationParameters,
-  ICreateUserMutationReturnType
-} from '@graphql/users/CreateUserMutation.types';
-import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
-import useNestedFormData from '@hooks/useNestedFormData';
-import EmployeeCreationModalButton from '@components/Button/EmployeeCreationModalButton';
-import useDisclosure from '@hooks/useDisclosure';
-import InputSelectField from '@components/Input/InputSelectField';
 import { EmployeeFormDisclosure } from '@pages/EmployeesPage/components/EmployeeFormDisclosure';
+import { InputTextField, InputPasswordField, InputSelectField } from '@components/Input';
+import { EmployeeCreationModalButton } from '@components/Button';
+import {
+  CreateUserMutation,
+  ICreateUserMutationParameters,
+  ICreateUserMutationReturnType,
+  GetUsersQuery
+} from '@graphql/users';
+import { useNestedFormData, useDisclosure } from '@hooks/index';
 
 const CreateEmployeeDisclosure = () => {
   const [createAction, { error: nativeError }] = useMutation<

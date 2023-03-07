@@ -2,16 +2,12 @@ import { useCallback, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useLazyQuery } from '@apollo/client';
 import { EmployeeFormDialogSection } from '@pages/EmployeesPage/components/EmployeeFormDialogSection';
-import InputTextField from '@components/Input/InputTextField';
-import InputSelectField from '@components/Input/InputSelectField';
-import { GetDepartmentsQuery } from '@graphql/departments/GetDepartmentsQuery';
-import { GetPositionsQuery } from '@graphql/positions/GetPositionsQuery';
-import { IDepartment } from '@graphql/interfaces/IDepartment';
-import { IPosition } from '@graphql/interfaces/IPosition';
-import useAdaptToSelect from '@hooks/useAdaptToSelect';
-import { IUpdateUserFormData } from '@graphql/interfaces/IUpdateUserFormData';
-import useRequest from '@hooks/useRequest';
-import Toast from '@components/Toast/Toast';
+import { InputTextField, InputSelectField } from '@components/Input';
+import { GetDepartmentsQuery } from '@graphql/departments';
+import { GetPositionsQuery } from '@graphql/positions';
+import { IDepartment, IPosition, IUpdateUserFormData } from '@graphql/interfaces';
+import { useAdaptToSelect, useRequest } from '@hooks/index';
+import { Toast } from '@components/Toast';
 import { IEmployeeFormDisclosureProps } from '.';
 
 function EmployeeFormDisclosure<T extends IUpdateUserFormData>(

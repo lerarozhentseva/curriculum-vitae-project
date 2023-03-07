@@ -4,16 +4,15 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useCallback, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  DeleteUserMutation,
   IDeleteUserMutationParameters,
-  IDeleteUserMutationReturnValue
-} from '@graphql/users/DeleteUserMutation.types';
-import { DeleteUserMutation } from '@graphql/users/DeleteUserMutation';
+  IDeleteUserMutationReturnValue,
+  GetUsersQuery
+} from '@graphql/users';
 import { authService } from '@graphql/auth/authService';
-import { IUser } from '@graphql/interfaces/IUser';
-import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
-import useDisclosure from '@hooks/useDisclosure';
-import useRequest from '@hooks/useRequest';
-import Toast from '@components/Toast/Toast';
+import { IUser } from '@graphql/interfaces';
+import { useDisclosure, useRequest } from '@hooks/index';
+import { Toast } from '@components/Toast';
 import { UpdateEmployeeDisclosure } from '@pages/EmployeesPage/components/UpdateEmployeeDisclosure';
 import { IEmployeesTableRowDisclosureProps } from '.';
 

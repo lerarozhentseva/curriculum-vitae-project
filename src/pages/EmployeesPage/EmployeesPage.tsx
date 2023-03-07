@@ -1,12 +1,12 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useQuery, useReactiveVar } from '@apollo/client';
-import { GetUsersQuery } from '@graphql/users/GetUsersQuery';
-import { IUser } from '@graphql/interfaces/IUser';
+import { GetUsersQuery } from '@graphql/users';
+import { IUser } from '@graphql/interfaces';
 import { authService } from '@graphql/auth/authService';
-import Header from '@components/Header/Header';
-import Breadcrumb from '@components/Breadcrumbs/Breadcrumbs';
-import Toast from '@components/Toast/Toast';
-import useCompoundError from '@hooks/useCompoundError';
+import { Header } from '@components/Header';
+import { Breadcrumb } from '@components/Breadcrumbs';
+import { Toast } from '@components/Toast';
+import { useCompoundError } from '@hooks/index';
 import { EmployeesTable } from './components/EmployeesTable';
 import { EmployeesFilter } from './components/EmployeesFilter';
 import { CreateEmployeeDisclosure } from './components/CreateEmployeeDisclosure';
