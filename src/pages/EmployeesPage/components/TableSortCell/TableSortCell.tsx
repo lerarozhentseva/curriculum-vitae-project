@@ -4,7 +4,7 @@ import { TableSortField, ITableSortCellProps } from '.';
 
 const TableSortCell: FC<ITableSortCellProps> = ({ children, cycleRules, rules, field }) => {
   return (
-    <TableCell>
+    <TableCell sx={{ minWidth: '105px' }}>
       <TableSortField disableRipple onClick={() => cycleRules(field)}>
         {children}
       </TableSortField>

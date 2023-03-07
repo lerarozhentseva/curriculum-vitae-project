@@ -1,5 +1,5 @@
 import { FC, useCallback, useMemo, useState } from 'react';
-import { TableBody } from '@mui/material';
+import { Table, TableBody } from '@mui/material';
 import { EmployeesTableRow } from '@pages/EmployeesPage/components/EmployeesTableRow';
 import { EmployeesTableHead } from '@pages/EmployeesPage/components/EmployeesTableHead';
 import {
@@ -48,16 +48,18 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
 
   return (
     <EmployeesTableUI>
-      <EmployeesTableHead sortingRules={sortingRules} cycleSortingRules={cycleSortingRules} />
-      <TableBody>
-        {isLoading
-          ? Array.from({ length: 3 }, (_, i) => (
-              <EmployeesTableRow isLoading={isLoading} key={i} user={null} />
-            ))
-          : sortedUsers.map((user) => (
-              <EmployeesTableRow isLoading={isLoading} key={user.id} user={user} />
-            ))}
-      </TableBody>
+      <Table>
+        <EmployeesTableHead sortingRules={sortingRules} cycleSortingRules={cycleSortingRules} />
+        <TableBody>
+          {isLoading
+            ? Array.from({ length: 3 }, (_, i) => (
+                <EmployeesTableRow isLoading={isLoading} key={i} user={null} />
+              ))
+            : sortedUsers.map((user) => (
+                <EmployeesTableRow isLoading={isLoading} key={user.id} user={user} />
+              ))}
+        </TableBody>
+      </Table>
     </EmployeesTableUI>
   );
 };
