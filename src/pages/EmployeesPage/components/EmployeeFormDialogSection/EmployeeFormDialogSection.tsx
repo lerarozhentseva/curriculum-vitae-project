@@ -12,7 +12,7 @@ const EmployeeFormDialogSection: FC<IEmployeeFormDialogSectionProps> = ({ childr
       <EmployeeFormDialogSectionHeading>{heading}</EmployeeFormDialogSectionHeading>
       <Grid container spacing={2}>
         {Children.map(children, (child) => (
-          <Grid item xs minWidth="250px">
+          <Grid item xs minWidth="200px">
             {child}
           </Grid>
         ))}
