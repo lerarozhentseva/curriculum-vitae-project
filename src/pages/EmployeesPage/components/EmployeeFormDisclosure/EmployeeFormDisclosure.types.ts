@@ -10,4 +10,5 @@ export interface IEmployeeFormDisclosureProps<T extends IUpdateUserFormData> {
   nativeError: Error | null | undefined;
   isOpen: boolean;
   onClose: () => void;
+  isLoading: boolean;
 }

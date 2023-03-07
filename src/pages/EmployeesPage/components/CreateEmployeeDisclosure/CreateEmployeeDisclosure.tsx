@@ -14,7 +14,7 @@ import {
 import { useNestedFormData, useDisclosure } from '@hooks/index';
 
 const CreateEmployeeDisclosure = () => {
-  const [createAction, { error: nativeError }] = useMutation<
+  const [createAction, { error: nativeError, loading }] = useMutation<
     ICreateUserMutationReturnType,
     ICreateUserMutationParameters
   >(CreateUserMutation, { refetchQueries: [{ query: GetUsersQuery }, 'GetUsers'] });
@@ -56,6 +56,7 @@ const CreateEmployeeDisclosure = () => {
         nativeError={nativeError}
         isOpen={isOpen}
         onClose={onClose}
+        isLoading={loading}
       >
         <EmployeeFormDialogSection heading="Credentials">
           <InputTextField

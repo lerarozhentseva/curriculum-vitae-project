@@ -2,5 +2,5 @@ import { IUser } from '@graphql/interfaces/IUser';
 
 export interface IUpdateEmployeeDisclosureProps {
   user: IUser;
-  onParentClose: () => void;
+  onBothClose: (onChildClose: () => void) => void;
 }

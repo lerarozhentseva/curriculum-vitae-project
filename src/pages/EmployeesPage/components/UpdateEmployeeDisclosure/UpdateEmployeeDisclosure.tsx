@@ -14,8 +14,8 @@ import { EmployeeFormDisclosure } from '@pages/EmployeesPage/components/Employee
 import { authService } from '@graphql/auth/authService';
 import { IUpdateEmployeeDisclosureProps } from '.';
 
-const UpdateEmployeeDisclosure: FC<IUpdateEmployeeDisclosureProps> = ({ user, onParentClose }) => {
-  const [updateAction, { error }] = useMutation<
+const UpdateEmployeeDisclosure: FC<IUpdateEmployeeDisclosureProps> = ({ user, onBothClose }) => {
+  const [updateAction, { error, loading }] = useMutation<
     IUpdateUserMutationReturnType,
     IUpdateUserMutationParameters
   >(UpdateUserMutation, {
@@ -52,11 +52,6 @@ const UpdateEmployeeDisclosure: FC<IUpdateEmployeeDisclosureProps> = ({ user, on
     resetFormData();
   }, [user, formData]);
 
-  const onBothClose = useCallback(() => {
-    onClose();
-    onParentClose();
-  }, []);
-
   return (
     <>
       <Box component={MenuItem} onClick={onOpen} disabled={!allowedToUpdate}>
@@ -69,7 +64,8 @@ const UpdateEmployeeDisclosure: FC<IUpdateEmployeeDisclosureProps> = ({ user, on
         action={updateUser}
         actionName="Update"
         isOpen={isOpen}
-        onClose={onBothClose}
+        onClose={() => onBothClose(onClose)}
+        isLoading={loading}
       />
     </>
   );

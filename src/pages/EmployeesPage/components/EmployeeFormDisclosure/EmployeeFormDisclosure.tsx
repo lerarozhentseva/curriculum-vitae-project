@@ -1,5 +1,12 @@
 import { useCallback, useEffect } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  LinearProgress
+} from '@mui/material';
 import { useLazyQuery } from '@apollo/client';
 import { EmployeeFormDialogSection } from '@pages/EmployeesPage/components/EmployeeFormDialogSection';
 import { InputTextField, InputSelectField } from '@components/Input';
@@ -21,7 +28,8 @@ function EmployeeFormDisclosure<T extends IUpdateUserFormData>(
     children,
     nativeError,
     isOpen,
-    onClose
+    onClose,
+    isLoading
   } = props;
 
   const [getDepartments, { data: departmentsData }] = useLazyQuery<{
@@ -53,6 +61,7 @@ function EmployeeFormDisclosure<T extends IUpdateUserFormData>(
     <>
       <Toast severity="error" message={error} onClose={clearError} />
       <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="lg">
+        {isLoading && <LinearProgress />}
         <DialogTitle textAlign="center">{actionName} Employee</DialogTitle>
         <DialogContent onKeyDown={(e) => e.stopPropagation()}>
           {children}
