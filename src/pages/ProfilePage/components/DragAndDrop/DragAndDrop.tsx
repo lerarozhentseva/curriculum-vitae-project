@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from 'react';
-import { StyledDragAndDropBox } from '@pages/ProfilePage/components/DragAndDrop/DragAndDrop.style';
+import React, { FC } from 'react';
+import { Box } from '@mui/material';
 
 interface IDragAndDrop {
   children: JSX.Element | JSX.Element[];
@@ -14,7 +14,7 @@ export const DragAndDrop: FC<IDragAndDrop> = ({ children, uploadAvatar }) => {
     }
   };
 
-  return <StyledDragAndDropBox onDrop={handleDrop}>{children}</StyledDragAndDropBox>;
+  return <Box onDrop={handleDrop}>{children}</Box>;
 };
 
 export default DragAndDrop;

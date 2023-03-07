@@ -27,18 +27,22 @@ const useAvatar = () => {
 
     try {
       if (currentFile) {
-        const base64 = await fileToBase64(currentFile);
-        await uploadAvatarMutation({
-          variables: {
-            id: user?.profile.id,
-            avatar: {
-              base64,
-              size: currentFile.size,
-              type: currentFile.type
+        if (currentFile.size > 500000) {
+          setSendDataError('File size exceeds 0.5MB');
+        } else {
+          const base64 = await fileToBase64(currentFile);
+          await uploadAvatarMutation({
+            variables: {
+              id: user?.profile.id,
+              avatar: {
+                base64,
+                size: currentFile.size,
+                type: currentFile.type
+              }
             }
-          }
-        });
-        setSendDataError('');
+          });
+          setSendDataError('');
+        }
       }
     } catch (error) {
       setSendDataError((error as Error).message);

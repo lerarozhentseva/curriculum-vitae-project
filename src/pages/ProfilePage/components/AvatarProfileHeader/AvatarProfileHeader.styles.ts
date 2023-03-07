@@ -4,7 +4,8 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 export const StyledBox = styled(Box)({
   display: 'flex',
   gap: '60px',
-  alignItems: 'center'
+  alignItems: 'center',
+  position: 'relative'
 });
 
 export const StyledAvatar = styled(Avatar)({
@@ -25,7 +26,16 @@ export const StyledFileUploadIcon = styled(FileUploadIcon)({
 });
 
 export const StyledAvatarCloseButton = styled(Button)({
-  marginLeft: '90px',
-  marginBottom: '-10px',
-  borderRadius: '50%'
+  borderRadius: '50%',
+  position: 'absolute',
+  top: '-20px',
+  left: '120px'
+});
+
+export const StyledForm = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '500px',
+  alignItems: 'center',
+  justifyContent: 'space-between'
 });
