@@ -10,13 +10,3 @@ export interface IFlattenedUser extends IUser {
   last_name: string;
   avatar: string;
 }
-
-export interface ISortingRules {
-  field: keyof IFlattenedUser;
-  order: SortingOrder;
-}
-
-export enum SortingOrder {
-  ASC = 0,
-  DESC = 1
-}
