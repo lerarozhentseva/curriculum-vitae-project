@@ -25,6 +25,6 @@ export const StyledPrLink = styled(Typography)(({ theme }) => ({
 })) as typeof Typography;
 
 export const StyledBreadcrumbsBox = styled(Box)({
-  width: '1000px',
+  width: 'calc(100% - 30px)',
   margin: '30px'
 });

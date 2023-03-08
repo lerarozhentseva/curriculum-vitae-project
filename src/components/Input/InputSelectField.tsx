@@ -1,24 +1,17 @@
-import { MenuItem, SxProps, TextField } from '@mui/material';
-import React from 'react';
+import { MenuItem, StandardTextFieldProps } from '@mui/material';
 import { StyledTextField } from '@components/Input/InputField.styles';
 
-export type InputSelectProps = {
-  defaultValue?: string;
-  label?: string;
-  size?: 'small' | 'medium' | undefined;
-  placeholder?: string;
-  error?: boolean;
-  color?: 'primary' | 'secondary';
-  sx?: SxProps;
-  helperText?: string;
-  data: Array<{ id: number; name: string }>;
-};
+export interface InputSelectProps extends StandardTextFieldProps {
+  data: Array<{ id: number; name: string; value?: string | number | readonly string[] }>;
+  multiple?: boolean;
+}
 
 const InputSelectField = ({
   label,
   size = 'medium',
   sx,
   data,
+  multiple,
   ...inputProps
 }: InputSelectProps) => {
   return (
@@ -30,9 +23,12 @@ const InputSelectField = ({
       margin="normal"
       label={label}
       sx={sx}
+      SelectProps={{ multiple }}
     >
-      {data.map(({ id, name }) => (
-        <MenuItem key={id}>{name}</MenuItem>
+      {data.map(({ id, name, value }) => (
+        <MenuItem value={value} key={id}>
+          {name}
+        </MenuItem>
       ))}
     </StyledTextField>
   );
