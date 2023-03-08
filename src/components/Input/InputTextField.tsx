@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { SxProps } from '@mui/material';
 import { StyledTextField } from './InputField.styles';
 
@@ -9,7 +9,7 @@ export type InputProps = {
   placeholder?: string;
   label?: string;
   value?: string;
-  onChange?: (e: { target: { value: React.SetStateAction<string> } }) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: boolean;
   color?: 'primary' | 'secondary';
   sx?: SxProps;
@@ -18,6 +18,7 @@ export type InputProps = {
     endAdornment?: React.ReactNode;
     startAdornment?: React.ReactNode;
   };
+  required?: boolean;
 };
 
 const InputTextField = ({
@@ -30,14 +31,16 @@ const InputTextField = ({
   value,
   onChange,
   sx,
-  inputProps = {}
+  label,
+  inputProps = {},
+  required
 }: InputProps) => {
   const { endAdornment, startAdornment } = inputProps;
   return (
     <StyledTextField
       name={name}
       helperText={helperText}
-      label={name}
+      label={label ?? name}
       type={inputType}
       placeholder={placeholder}
       fullWidth
@@ -48,6 +51,7 @@ const InputTextField = ({
       InputProps={{ endAdornment, startAdornment }}
       margin="normal"
       sx={sx}
+      required={required}
     />
   );
 };
