@@ -14,9 +14,9 @@ export default function useFilter<T extends any[]>(
   const filteredData = useMemo(() => {
     if (!query) return data;
 
-    let filtered = data.filter((item) => item[field].includes(query));
+    let filtered = data.filter((item) => item[field]?.includes(query));
     if (!filtered.length && fallback)
-      filtered = data.filter((item) => item[fallback].includes(query));
+      filtered = data.filter((item) => item[fallback]?.includes(query));
 
     return filtered as T;
   }, [data, query]);
