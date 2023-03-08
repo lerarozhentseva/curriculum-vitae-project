@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
+import { Assignment, Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
 import { MenuList, Box } from '@mui/material';
 import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
 import { routes } from '@route/routeConstants';
@@ -31,7 +31,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
               <StyledGroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
               Employees
             </SideMenuItem>
-            {/*<SideMenuItem path={}>Projects</SideMenuItem>*/}
+            <SideMenuItem path={`/${routes.PROJECTS}`}>
+              <Assignment sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
+              Projects
+            </SideMenuItem>
             {/*<SideMenuItem path={}>CVs</SideMenuItem>*/}
             {/*<Divider />*/}
             {/*<SideMenuItem path={}>Departments</SideMenuItem>*/}
