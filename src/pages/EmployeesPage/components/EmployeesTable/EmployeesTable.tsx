@@ -2,19 +2,11 @@ import { FC, useMemo } from 'react';
 import { EmployeesTableRow } from '@pages/EmployeesPage/components/EmployeesTableRow';
 import { useSort } from '@hooks/index';
 import { AppTable } from '@components/AppTable';
-import { IEmployeesTableProps, IFlattenedUser } from '.';
+import { IFlattenedUser } from '@pages/EmployeesPage/EmployeesPage.types';
+import { IEmployeesTableProps } from '.';
 
 const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
-  const flattenedUsers: IFlattenedUser[] = useMemo(() => {
-    return users.map((user) => ({
-      ...user,
-      avatar: user.profile.avatar,
-      first_name: user.profile.first_name,
-      last_name: user.profile.last_name
-    }));
-  }, [users]);
-
-  const [sortedUsers, sortingRules, cycleSortingRules] = useSort(flattenedUsers, 'department_name');
+  const [sortedUsers, sortingRules, cycleSortingRules] = useSort(users, 'department_name');
 
   const fields: ([keyof IFlattenedUser, string] | undefined)[] = useMemo(
     () => [
