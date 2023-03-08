@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import { StyledTextField } from '@components/Input/InputField.styles';
 
-export const EmployeesFilterTextField = styled(StyledTextField)({
+export const FilterTextField = styled(StyledTextField)({
   '& .MuiOutlinedInput-input': {
     width: '250px',
     padding: '6.7px 14px',

@@ -6,9 +6,9 @@ import { authService } from '@graphql/auth/authService';
 import { Header } from '@components/Header';
 import { Breadcrumb } from '@components/Breadcrumbs';
 import { Toast } from '@components/Toast';
+import { Filter } from '@components/Filter';
 import { useCompoundError, useFilter } from '@hooks/index';
 import { EmployeesTable } from './components/EmployeesTable';
-import { EmployeesFilter } from './components/EmployeesFilter';
 import { CreateEmployeeDisclosure } from './components/CreateEmployeeDisclosure';
 import { IFlattenedUser } from '.';
 
@@ -37,7 +37,7 @@ const EmployeesPage = () => {
       <Toast severity="error" message={error} onClose={clearError} />
       <Header />
       <Breadcrumb />
-      <EmployeesFilter query={query} onChange={onQueryChange} />
+      <Filter query={query} onChange={onQueryChange} />
       {user?.role === 'admin' && <CreateEmployeeDisclosure />}
       <EmployeesTable users={filteredUsers} isLoading={loading} />
     </>

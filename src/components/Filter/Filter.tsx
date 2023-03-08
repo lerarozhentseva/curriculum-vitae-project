@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Search } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
-import { IEmployeesFilterProps, EmployeesFilterTextField } from '.';
+import { IFilterProps, FilterTextField } from '.';
 
-const EmployeesFilter: FC<IEmployeesFilterProps> = ({ query, onChange }) => {
+const Filter: FC<IFilterProps> = ({ query, onChange }) => {
   return (
-    <EmployeesFilterTextField
+    <FilterTextField
       type="text"
       value={query}
       onChange={onChange}
@@ -21,4 +21,4 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({ query, onChange }) => {
   );
 };
 
-export default EmployeesFilter;
+export default Filter;
