@@ -55,7 +55,9 @@ const UserMenu = () => {
         onClick={handleOpenMenu}
         color="secondary"
       >
-        <Avatar sx={{ backgroundColor: 'secondary.main' }}>{getAvatarLetter()}</Avatar>
+        <Avatar src={user?.profile.avatar} sx={{ backgroundColor: 'secondary.main' }}>
+          {getAvatarLetter()}
+        </Avatar>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
