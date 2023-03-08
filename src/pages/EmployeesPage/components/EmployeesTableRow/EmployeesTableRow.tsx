@@ -1,6 +1,7 @@
-import { FC, ReactNode, useCallback, useMemo } from 'react';
-import { Avatar, AvatarProps, Skeleton, SkeletonProps, TableCell, TableRow } from '@mui/material';
+import { FC, useMemo } from 'react';
+import { Avatar, AvatarProps, TableCell, TableRow } from '@mui/material';
 import { EmployeesTableRowDisclosure } from '@pages/EmployeesPage/components/EmployeesTableRowDisclosure';
+import { useSkeleton } from '@hooks/index';
 import { IEmpoyeesTableRowProps } from '.';
 
 const EmployeesTableRow: FC<IEmpoyeesTableRowProps> = ({ user, isLoading }) => {
@@ -17,13 +18,7 @@ const EmployeesTableRow: FC<IEmpoyeesTableRowProps> = ({ user, isLoading }) => {
     return props;
   }, [user]);
 
-  const tryShow = useCallback(
-    (data: ReactNode | undefined, variant: SkeletonProps['variant']) => {
-      if (isLoading) return <Skeleton variant={variant}>{data}</Skeleton>;
-      return data;
-    },
-    [isLoading]
-  );
+  const tryShow = useSkeleton(isLoading);
 
   return (
     <TableRow>
