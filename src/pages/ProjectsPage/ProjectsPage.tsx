@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { useMemo } from 'react';
 import { Breadcrumb } from '@components/Breadcrumbs';
 import { Header } from '@components/Header';
@@ -7,8 +7,10 @@ import { IProject } from '@graphql/interfaces';
 import { useCompoundError, useFilter } from '@hooks/index';
 import { Toast } from '@components/Toast';
 import { Filter } from '@components/Filter';
+import { authService } from '@graphql/auth/authService';
 import { formatDate } from './utils';
 import { ProjectsTable } from './components/ProjectsTable';
+import { CreateProjectDisclosure } from './components/CreateProjectDisclosure';
 
 const ProjectsPage = () => {
   const { data, loading, error: nativeError } = useQuery<{ projects: IProject[] }>(
@@ -28,12 +30,15 @@ const ProjectsPage = () => {
 
   const { error, clearError } = useCompoundError(nativeError);
 
+  const user = useReactiveVar(authService.user$);
+
   return (
     <>
       <Toast severity="error" message={error} onClose={clearError} />
       <Header />
       <Breadcrumb />
       <Filter query={query} onChange={onQueryChange} />
+      {user?.role === 'admin' && <CreateProjectDisclosure />}
       <ProjectsTable projects={filteredProjects} isLoading={loading} />
     </>
   );
