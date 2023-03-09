@@ -7,7 +7,7 @@ import { IProjectResult } from '@pages/ProjectDetailsPage/ProjectDetailsPage';
 import { authService } from '@graphql/auth/authService';
 import isAdmin from '@graphql/user/isAdmin';
 
-const useProjectDetails = () => {
+const useUpdateProject = () => {
   const { id } = useParams();
   const { loading, data, error } = useQuery<IProjectResult>(GetProjectQuery, {
     variables: { id }
@@ -102,4 +102,4 @@ const useProjectDetails = () => {
   };
 };
 
-export default useProjectDetails;
+export default useUpdateProject;

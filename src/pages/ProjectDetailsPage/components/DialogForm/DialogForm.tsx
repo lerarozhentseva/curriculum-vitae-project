@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react';
 import { DialogContent, DialogTitle } from '@mui/material';
 import { InputTextField } from '@components/Input';
-import useProjectDetails from '@pages/ProjectDetailsPage/hooks/useProjectDetails';
+import useUpdateProject from '@pages/ProjectDetailsPage/hooks/useUpdateProject';
 import {
   StyledDialog,
   StyledDateBox,
@@ -32,7 +32,7 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
     teamSize,
     setTeamSize,
     handleSubmit
-  } = useProjectDetails();
+  } = useUpdateProject();
 
   return (
     <StyledDialog onClose={handleClickClose} open={isOpen}>

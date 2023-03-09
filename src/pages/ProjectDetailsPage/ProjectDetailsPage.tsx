@@ -5,7 +5,7 @@ import { Header } from '@components/Header';
 import { Breadcrumb } from '@components/Breadcrumbs';
 import { ConfirmButton } from '@components/Button';
 import { PageLoader } from '@components/PageLoader';
-import useProjectDetails from '@pages/ProjectDetailsPage/hooks/useProjectDetails';
+import useUpdateProject from '@pages/ProjectDetailsPage/hooks/useUpdateProject';
 import DialogForm from '@pages/ProjectDetailsPage/components/DialogForm/DialogForm';
 import {
   StyledPaper,
@@ -27,7 +27,7 @@ const ProjectDetailsPage: FC = () => {
     isOpen,
     handleClickClose,
     userIsAdmin
-  } = useProjectDetails();
+  } = useUpdateProject();
 
   return (
     <>
