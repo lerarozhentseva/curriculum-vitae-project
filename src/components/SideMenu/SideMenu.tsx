@@ -12,6 +12,13 @@ interface ISideMenuProps {
   onClose: () => void;
 }
 
+const iconStyles = {
+  sx: {
+    backgroundColor: 'secondary.contrastText',
+    mr: 2
+  }
+};
+
 export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
   const handleCloseMenu = () => {
     onClose();
@@ -28,11 +35,11 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
         <Box>
           <MenuList>
             <SideMenuItem path={`/${routes.EMPLOYEES}`}>
-              <StyledGroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
+              <StyledGroupIcon {...iconStyles} />
               Employees
             </SideMenuItem>
             <SideMenuItem path={`/${routes.PROJECTS}`}>
-              <Assignment sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
+              <Assignment {...iconStyles} />
               Projects
             </SideMenuItem>
             {/*<SideMenuItem path={}>CVs</SideMenuItem>*/}
