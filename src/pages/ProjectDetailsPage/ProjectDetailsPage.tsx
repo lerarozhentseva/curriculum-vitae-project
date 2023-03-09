@@ -33,28 +33,34 @@ const ProjectDetailsPage: FC = () => {
     <>
       <Header />
       <Breadcrumb />
-      {(loading || updateProjectLoading || error) && <PageLoader />}
-      <Box>
-        <StyledPaper elevation={3}>
-          <Box>
-            <Typography variant="h6">Project Name: {data?.project?.name || ''}</Typography>
-            <Typography variant="h6">
-              Internal Name: {data?.project?.internal_name || ''}
-            </Typography>
-            <Typography variant="h6">Description: {data?.project?.description || ''}</Typography>
-            <Typography variant="h6">Domain: {data?.project?.domain || ''}</Typography>
-            <Typography variant="h6">Start date: {data?.project?.start_date || ''}</Typography>
-            <Typography variant="h6">End date: {data?.project?.end_date || 'Up to now'}</Typography>
-          </Box>
-          <ConfirmButton
-            sx={{ width: '100px', height: '40px' }}
-            onClick={handleClickOpen}
-            disabled={!userIsAdmin}
-            name="Edit"
-          />
-          <DialogForm isOpen={isOpen} handleClickClose={handleClickClose} />
-        </StyledPaper>
-      </Box>
+      {loading || updateProjectLoading || error ? (
+        <PageLoader />
+      ) : (
+        <Box>
+          <StyledPaper elevation={3}>
+            <Box>
+              <Typography variant="h6">Project Name: {data?.project?.name || ''}</Typography>
+              <Typography variant="h6">
+                Internal Name: {data?.project?.internal_name || ''}
+              </Typography>
+              <Typography variant="h6">Description: {data?.project?.description || ''}</Typography>
+              <Typography variant="h6">Domain: {data?.project?.domain || ''}</Typography>
+              <Typography variant="h6">Start date: {data?.project?.start_date || ''}</Typography>
+              <Typography variant="h6">
+                End date: {data?.project?.end_date || 'Up to now'}
+              </Typography>
+            </Box>
+            <ConfirmButton
+              sx={{ width: '100px', height: '40px' }}
+              onClick={handleClickOpen}
+              disabled={!userIsAdmin}
+              name="Edit"
+            />
+            <DialogForm isOpen={isOpen} handleClickClose={handleClickClose} />
+          </StyledPaper>
+        </Box>
+      )}
+
       {updateProjectError && (
         <StyledNotificationAlert severity="error" text={'Something went wrong'} />
       )}
