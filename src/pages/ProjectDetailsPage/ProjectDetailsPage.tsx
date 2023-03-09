@@ -1,13 +1,16 @@
 import { FC } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { IProject } from '@graphql/interfaces';
 import { Header } from '@components/Header';
 import { Breadcrumb } from '@components/Breadcrumbs';
 import { ConfirmButton } from '@components/Button';
 import { PageLoader } from '@components/PageLoader';
-import { NotificationAlert } from '@components/NotificationAlert';
 import useProjectDetails from '@pages/ProjectDetailsPage/hooks/useProjectDetails';
-import DialogForm from '@pages/ProjectDetailsPage/components/DialogForm';
+import DialogForm from '@pages/ProjectDetailsPage/components/DialogForm/DialogForm';
+import {
+  StyledPaper,
+  StyledNotificationAlert
+} from '@pages/ProjectDetailsPage/ProjectDetailsPage.styles';
 
 export interface IProjectResult {
   project: IProject | null;
@@ -31,16 +34,7 @@ const ProjectDetailsPage: FC = () => {
       <Breadcrumb />
       {(loading || updateProjectLoading || error) && <PageLoader />}
       <Box>
-        <Paper
-          elevation={3}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '30px 40px',
-            m: '20px 40px'
-          }}
-        >
+        <StyledPaper elevation={3}>
           <Box>
             <Typography variant="h6">Project Name: {data?.project?.name || ''}</Typography>
             <Typography variant="h6">
@@ -57,14 +51,10 @@ const ProjectDetailsPage: FC = () => {
             name="Edit"
           />
           <DialogForm isOpen={isOpen} handleClickClose={handleClickClose} />
-        </Paper>
+        </StyledPaper>
       </Box>
       {updateProjectError && (
-        <NotificationAlert
-          sx={{ position: 'fixed', bottom: '10px', left: '10px', width: '300px' }}
-          severity="error"
-          text={'Something went wrong'}
-        />
+        <StyledNotificationAlert severity="error" text={'Something went wrong'} />
       )}
     </>
   );

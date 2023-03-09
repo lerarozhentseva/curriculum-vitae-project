@@ -1,7 +1,14 @@
-import { FC } from 'react';
-import { Box, Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { ChangeEvent, FC } from 'react';
+import { DialogContent, DialogTitle } from '@mui/material';
 import { InputTextField } from '@components/Input';
 import useProjectDetails from '@pages/ProjectDetailsPage/hooks/useProjectDetails';
+import {
+  StyledDialog,
+  StyledDateBox,
+  StyledBox,
+  StyledButton
+} from '@pages/ProjectDetailsPage/components/DialogForm/DialogForm.styles';
+import DateInput from '@components/DateInput/DateInput';
 
 interface DialogFormProps {
   isOpen: boolean;
@@ -28,11 +35,7 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
   } = useProjectDetails();
 
   return (
-    <Dialog
-      onClose={handleClickClose}
-      open={isOpen}
-      sx={{ display: 'flex', flexDirection: 'column' }}
-    >
+    <StyledDialog onClose={handleClickClose} open={isOpen}>
       <DialogTitle>Edit Project</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
@@ -66,56 +69,39 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
             name="Team Size"
             value={teamSize}
           />
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '15px' }}>
-            <TextField
-              id="date"
+          <StyledDateBox>
+            <DateInput
               label="Start date"
-              type="date"
               value={startDate}
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setStartDate(e.target.value);
               }}
-              sx={{ width: 220 }}
-              InputLabelProps={{
-                shrink: true
-              }}
             />
-            <TextField
-              id="date"
+            <DateInput
               label="End date"
-              type="date"
               value={endDate}
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setEndDate(e.target.value);
               }}
-              sx={{ width: 220, ml: '50px' }}
-              InputLabelProps={{
-                shrink: true
-              }}
             />
-          </Box>
-          <Box sx={{ mt: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              sx={{ width: '150px', height: '30px' }}
-              variant="contained"
-              color="primary"
-              onClick={handleClickClose}
-            >
+          </StyledDateBox>
+          <StyledBox>
+            <StyledButton variant="contained" color="primary" onClick={handleClickClose}>
               Cancel
-            </Button>
-            <Button
-              sx={{ width: '150px', height: '30px', ml: '30px' }}
+            </StyledButton>
+            <StyledButton
+              sx={{ ml: '30px' }}
               variant="contained"
               color="secondary"
               type="submit"
               onClick={handleClickClose}
             >
               Edit
-            </Button>
-          </Box>
+            </StyledButton>
+          </StyledBox>
         </form>
       </DialogContent>
-    </Dialog>
+    </StyledDialog>
   );
 };
 

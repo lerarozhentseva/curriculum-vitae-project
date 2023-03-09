@@ -1,7 +1,7 @@
+import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GetProjectQuery } from '@graphql/project/GetProjectQuery';
-import { FormEvent, useEffect, useState } from 'react';
 import { UpdateProjectMutation } from '@graphql/project/UpdateProjectMutation';
 import { IProjectResult } from '@pages/ProjectDetailsPage/ProjectDetailsPage';
 
