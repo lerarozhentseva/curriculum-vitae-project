@@ -6,11 +6,12 @@ type ConfirmButtonProps = {
   name: string;
   sx?: SxProps;
   onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
+  disabled?: boolean;
 };
 
-const ConfirmButton = ({ name, sx, onClick }: ConfirmButtonProps) => {
+const ConfirmButton = ({ name, sx, onClick, disabled }: ConfirmButtonProps) => {
   return (
-    <AppButton variant="contained" sx={sx} onClick={onClick}>
+    <AppButton variant="contained" sx={sx} onClick={onClick} disabled={disabled}>
       {name}
     </AppButton>
   );

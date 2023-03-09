@@ -25,7 +25,8 @@ const ProjectDetailsPage: FC = () => {
     updateProjectLoading,
     handleClickOpen,
     isOpen,
-    handleClickClose
+    handleClickClose,
+    userIsAdmin
   } = useProjectDetails();
 
   return (
@@ -48,6 +49,7 @@ const ProjectDetailsPage: FC = () => {
           <ConfirmButton
             sx={{ width: '100px', height: '40px' }}
             onClick={handleClickOpen}
+            disabled={!userIsAdmin}
             name="Edit"
           />
           <DialogForm isOpen={isOpen} handleClickClose={handleClickClose} />
