@@ -10,6 +10,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { InputDateField, InputTextField } from '@components/Input';
 import { Toast } from '@components/Toast';
+import { EmployeeCreationModalButton } from '@components/Button';
 import { ICreateProjectFormData } from '@graphql/interfaces';
 import {
   CreateProjectMutation,
@@ -18,19 +19,13 @@ import {
   ICreateProjectMutationReturnValue
 } from '@graphql/projects';
 import { useRequest, useNestedFormData, useDisclosure } from '@hooks/index';
-import { EmployeeCreationModalButton } from '@components/Button';
+import { INITIAL_CREATE_DATA } from '@pages/ProjectsPage/utils';
 
 const CreateProjectDisclosure = () => {
-  const { formData, onFormFieldChange, resetFormData } = useNestedFormData<ICreateProjectFormData>({
-    name: '',
-    internal_name: '',
-    description: '',
-    domain: '',
-    team_size: 0,
-    skillsIds: [],
-    start_date: '',
-    end_date: ''
-  });
+  const { formData, onFormFieldChange, resetFormData } = useNestedFormData<ICreateProjectFormData>(
+    INITIAL_CREATE_DATA
+  );
+
   const [createAction, { loading: isLoading, error: nativeError }] = useMutation<
     ICreateProjectMutationReturnValue,
     ICreateProjectMutationParameters
