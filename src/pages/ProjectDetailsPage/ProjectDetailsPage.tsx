@@ -7,10 +7,7 @@ import { ConfirmButton } from '@components/Button';
 import { PageLoader } from '@components/PageLoader';
 import useUpdateProject from '@pages/ProjectDetailsPage/hooks/useUpdateProject';
 import DialogForm from '@pages/ProjectDetailsPage/components/DialogForm/DialogForm';
-import {
-  StyledPaper,
-  StyledNotificationAlert
-} from '@pages/ProjectDetailsPage/ProjectDetailsPage.styles';
+import { StyledPaper } from '@pages/ProjectDetailsPage/ProjectDetailsPage.styles';
 
 export interface IProjectResult {
   project: IProject | null;
