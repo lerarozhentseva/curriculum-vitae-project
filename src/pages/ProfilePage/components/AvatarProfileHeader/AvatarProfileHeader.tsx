@@ -1,15 +1,21 @@
 import { Box, Typography } from '@mui/material';
-import { FC } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
 import { IUser } from '@interfaces/IUser';
+import DragAndDrop from '@pages/ProfilePage/components/DragAndDrop/DragAndDrop';
 import {
   StyledAvatar,
   StyledBox,
   StyledFileUploadIcon,
-  StyledTypography
+  StyledTypography,
+  StyledAvatarCloseButton,
+  StyledForm
 } from './AvatarProfileHeader.styles';
 
 interface AvatarProfileHeaderProps {
   user?: IUser;
+  deleteAvatar: () => void;
+  uploadAvatar: (event: FileList | null) => void;
 }
 
 const getAvatarLetter = (user?: IUser) => {
@@ -29,21 +35,59 @@ const formatCreateDate = (createDate?: string) => {
   return `A member since ${new Date(+createDate).toDateString()}`;
 };
 
-const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({ user }) => {
+const AvatarProfileHeader: FC<AvatarProfileHeaderProps> = ({
+  user,
+  deleteAvatar,
+  uploadAvatar
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleInputClick = () => {
+    if (!user?.profile.avatar) {
+      fileInputRef?.current?.click();
+    }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      uploadAvatar(files);
+    }
+  };
+
+  useEffect(() => {
+    const handlePrevent = (event: DragEvent) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('dragover', handlePrevent, false);
+    window.removeEventListener('drop', handlePrevent, false);
+  }, []);
+
   return (
     <>
       <StyledBox>
-        <Box>
-          <StyledAvatar alt="avatar">{getAvatarLetter(user)}</StyledAvatar>
-        </Box>
-        <form>
-          <StyledTypography variant="button">
-            <StyledFileUploadIcon />
-            Upload avatar image
-          </StyledTypography>
-          <Typography color={'grey'}>png, jpg or gif no more than 0.5MB</Typography>
-          <input type="file" hidden />
-        </form>
+        {user?.profile.avatar && (
+          <StyledAvatarCloseButton onClick={deleteAvatar}>
+            <CloseIcon />
+          </StyledAvatarCloseButton>
+        )}
+        <DragAndDrop uploadAvatar={uploadAvatar}>
+          <StyledForm component={'form'} onClick={handleInputClick}>
+            <Box>
+              <StyledAvatar src={user?.profile.avatar} alt="avatar">
+                {getAvatarLetter(user)}
+              </StyledAvatar>
+            </Box>
+            <Box>
+              <StyledTypography variant="button">
+                <StyledFileUploadIcon />
+                Upload avatar image
+              </StyledTypography>
+              <Typography color={'grey'}>png, jpg or gif no more than 0.5MB</Typography>
+              <input type="file" hidden ref={fileInputRef} onChange={handleInputChange} />
+            </Box>
+          </StyledForm>
+        </DragAndDrop>
       </StyledBox>
       <Typography mt={2} fontSize="25px">{`${user?.profile.first_name || ''} ${user?.profile
         .last_name || ''}`}</Typography>

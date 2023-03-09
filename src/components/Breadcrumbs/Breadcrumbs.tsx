@@ -27,21 +27,20 @@ export default function Breadcrumb() {
           Home
         </StyledLink>
         {breadcrumbItems.map((page, index) => {
-          const name =
-            page === user?.id ? `${toTitleCase(user.profile.full_name)}` : toTitleCase(page);
           const isCurrentUser = page === user?.id;
+          const name = isCurrentUser ? user.profile.full_name || user?.email : page;
           const to = `/${breadcrumbItems.slice(0, index + 1).join('/')}`;
           if (isCurrentUser) {
             return (
               <StyledPrLink key={to} component={NavLink} to={to}>
                 <PersonOutlineIcon />
-                {name}
+                {toTitleCase(name)}
               </StyledPrLink>
             );
           } else {
             return (
               <StyledLink key={to} component={NavLink} to={to}>
-                {name}
+                {toTitleCase(name)}
               </StyledLink>
             );
           }
