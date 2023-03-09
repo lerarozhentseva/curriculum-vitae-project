@@ -50,33 +50,10 @@ const useUpdateProject = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await updateProject({
-        variables: {
-          id: data?.project?.id,
-          project: {
-            name: projectName,
-            internal_name: internalName,
-            description,
-            domain: projectDomain,
-            start_date: startDate,
-            end_date: endDate,
-            skillsIds: [],
-            team_size: Number(teamSize)
-          }
-        }
-      });
-    } catch (err) {
-      console.log((err as Error).message);
-    }
-  };
-
   return {
-    handleSubmit,
     data,
     isOpen,
+    setIsOpen,
     handleClickOpen,
     handleClickClose,
     loading,

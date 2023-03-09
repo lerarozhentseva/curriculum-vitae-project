@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, FormEvent } from 'react';
 import { DialogContent, DialogTitle } from '@mui/material';
 import { InputTextField } from '@components/Input';
 import useUpdateProject from '@pages/ProjectDetailsPage/hooks/useUpdateProject';
@@ -9,6 +9,7 @@ import {
   StyledButton
 } from '@pages/ProjectDetailsPage/components/DialogForm/DialogForm.styles';
 import DateInput from '@components/DateInput/DateInput';
+import { NotificationAlert } from '@components/NotificationAlert';
 
 interface DialogFormProps {
   isOpen: boolean;
@@ -31,8 +32,36 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
     setProjectDomain,
     teamSize,
     setTeamSize,
-    handleSubmit
+    updateProject,
+    updateProjectError,
+    setIsOpen,
+    data
   } = useUpdateProject();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(11);
+    try {
+      await updateProject({
+        variables: {
+          id: data?.project?.id,
+          project: {
+            name: projectName,
+            internal_name: internalName,
+            description,
+            domain: projectDomain,
+            start_date: startDate,
+            end_date: endDate,
+            skillsIds: [],
+            team_size: Number(teamSize)
+          }
+        }
+      });
+      handleClickClose();
+    } catch {
+      setIsOpen(true);
+    }
+  };
 
   return (
     <StyledDialog onClose={handleClickClose} open={isOpen}>
@@ -89,17 +118,18 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
             <StyledButton variant="contained" color="primary" onClick={handleClickClose}>
               Cancel
             </StyledButton>
-            <StyledButton
-              sx={{ ml: '30px' }}
-              variant="contained"
-              color="secondary"
-              type="submit"
-              onClick={handleClickClose}
-            >
+            <StyledButton sx={{ ml: '30px' }} variant="contained" color="secondary" type="submit">
               Edit
             </StyledButton>
           </StyledBox>
         </form>
+        {updateProjectError && (
+          <NotificationAlert
+            severity="error"
+            text={'Something went wrong'}
+            sx={{ width: '200px', m: '10px 0' }}
+          />
+        )}
       </DialogContent>
     </StyledDialog>
   );

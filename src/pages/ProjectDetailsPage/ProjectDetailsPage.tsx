@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, FormEvent } from 'react';
 import { Box, Typography } from '@mui/material';
 import { IProject } from '@graphql/interfaces';
 import { Header } from '@components/Header';
@@ -19,13 +19,12 @@ export interface IProjectResult {
 const ProjectDetailsPage: FC = () => {
   const {
     data,
+    isOpen,
+    handleClickOpen,
+    handleClickClose,
     loading,
     error,
-    updateProjectError,
     updateProjectLoading,
-    handleClickOpen,
-    isOpen,
-    handleClickClose,
     userIsAdmin
   } = useUpdateProject();
 
@@ -59,10 +58,6 @@ const ProjectDetailsPage: FC = () => {
             <DialogForm isOpen={isOpen} handleClickClose={handleClickClose} />
           </StyledPaper>
         </Box>
-      )}
-
-      {updateProjectError && (
-        <StyledNotificationAlert severity="error" text={'Something went wrong'} />
       )}
     </>
   );
