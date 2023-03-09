@@ -6,7 +6,7 @@ export const StyledPaper = styled(Paper)({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '30px 40px',
-  m: '20px 40px'
+  margin: '20px 40px'
 });
 
 export const StyledNotificationAlert = styled(NotificationAlert)({
