@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import { IProject } from '@graphql/interfaces';
 import { Header } from '@components/Header';
