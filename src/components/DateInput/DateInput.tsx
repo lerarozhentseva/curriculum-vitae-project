@@ -1,24 +1,20 @@
-import React, { ChangeEvent } from 'react';
-import TextField from '@mui/material/TextField';
+import React, { FC } from 'react';
+import { UncontrolledTextField } from '@components/Input';
 
 interface DateInputProps {
   label: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  name: string;
+  defaultValue: string | number;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label, value, onChange }) => {
+const DateInput: FC<DateInputProps> = ({ label, name, defaultValue }) => {
   return (
-    <TextField
-      id="date"
+    <UncontrolledTextField
+      name={name}
       label={label}
-      type="date"
-      value={value}
-      onChange={onChange}
+      inputType="date"
+      defaultValue={defaultValue}
       sx={{ width: 220 }}
-      InputLabelProps={{
-        shrink: true
-      }}
     />
   );
 };

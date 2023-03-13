@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, FormEvent } from 'react';
+import React, { FC, FormEvent, useRef } from 'react';
 import { DialogContent, DialogTitle } from '@mui/material';
-import { InputTextField } from '@components/Input';
+import { UncontrolledTextField } from '@components/Input';
 import useUpdateProject from '@pages/ProjectDetailsPage/hooks/useUpdateProject';
 import {
   StyledDialog,
@@ -17,44 +17,29 @@ interface DialogFormProps {
 }
 
 const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
-  const {
-    projectName,
-    setProjectName,
-    internalName,
-    setInternalName,
-    description,
-    setDescription,
-    startDate,
-    endDate,
-    setEndDate,
-    setStartDate,
-    projectDomain,
-    setProjectDomain,
-    teamSize,
-    setTeamSize,
-    updateProject,
-    updateProjectError,
-    setIsOpen,
-    data
-  } = useUpdateProject();
+  const { updateProject, updateProjectError, setIsOpen, data } = useUpdateProject();
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(11);
+    const formData = new FormData(e.currentTarget);
+    const project = {
+      name: formData.get('projectName') as string,
+      internal_name: formData.get('internalName') as string,
+      description: formData.get('description') as string,
+      domain: formData.get('domain') as string,
+      start_date: formData.get('startDate') as string,
+      end_date: formData.get('endDate') as string,
+      team_size: Number(formData.get('teamSize')),
+      skillsIds: []
+    };
+
     try {
       await updateProject({
         variables: {
           id: data?.project?.id,
-          project: {
-            name: projectName,
-            internal_name: internalName,
-            description,
-            domain: projectDomain,
-            start_date: startDate,
-            end_date: endDate,
-            skillsIds: [],
-            team_size: Number(teamSize)
-          }
+          project
         }
       });
       handleClickClose();
@@ -67,51 +52,42 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
     <StyledDialog onClose={handleClickClose} open={isOpen}>
       <DialogTitle>Edit Project</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <InputTextField
-            inputType="text"
-            onChange={(e) => setProjectName(e.target.value)}
-            name="Project Name"
-            value={projectName}
+        <form onSubmit={handleSubmit} ref={formRef}>
+          <UncontrolledTextField
+            label="Project Name"
+            name="projectName"
+            defaultValue={data?.project?.name || ''}
           />
-          <InputTextField
-            inputType="text"
-            onChange={(e) => setInternalName(e.target.value)}
-            name="Internal Name"
-            value={internalName}
+          <UncontrolledTextField
+            label="Internal Name"
+            name="internalName"
+            defaultValue={data?.project?.internal_name || ''}
           />
-          <InputTextField
-            inputType="text"
-            onChange={(e) => setDescription(e.target.value)}
-            name="Description"
-            value={description}
+          <UncontrolledTextField
+            label="Description"
+            name="description"
+            defaultValue={data?.project?.description || ''}
           />
-          <InputTextField
-            inputType="text"
-            onChange={(e) => setProjectDomain(e.target.value)}
-            name="Domain"
-            value={projectDomain}
+          <UncontrolledTextField
+            label="Project Domain"
+            defaultValue={data?.project?.domain || ''}
+            name="domain"
           />
-          <InputTextField
-            inputType="text"
-            onChange={(e) => setTeamSize(e.target.value)}
-            name="Team Size"
-            value={teamSize}
+          <UncontrolledTextField
+            label="Team Size"
+            defaultValue={data?.project?.team_size || ''}
+            name="teamSize"
           />
           <StyledDateBox>
             <DateInput
+              name="startDate"
               label="Start date"
-              value={startDate}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setStartDate(e.target.value);
-              }}
+              defaultValue={data?.project?.start_date || ''}
             />
             <DateInput
+              name="endDate"
               label="End date"
-              value={endDate}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setEndDate(e.target.value);
-              }}
+              defaultValue={data?.project?.end_date || ''}
             />
           </StyledDateBox>
           <StyledBox>
@@ -134,5 +110,4 @@ const DialogForm: FC<DialogFormProps> = ({ isOpen, handleClickClose }) => {
     </StyledDialog>
   );
 };
-
 export default DialogForm;
