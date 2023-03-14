@@ -6,11 +6,20 @@ export type AppButtonProps = {
   children: string;
   disabled?: boolean;
   sx?: SxProps;
+  onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
 };
 
-const AppButton = ({ variant, children, disabled, sx }: AppButtonProps) => {
+const AppButton = ({ variant, children, disabled, sx, onClick }: AppButtonProps) => {
   return (
-    <Button fullWidth variant={variant} color="secondary" sx={sx} disabled={disabled} type="submit">
+    <Button
+      fullWidth
+      variant={variant}
+      color="secondary"
+      sx={sx}
+      disabled={disabled}
+      onClick={onClick}
+      type="submit"
+    >
       {children}
     </Button>
   );

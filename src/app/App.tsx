@@ -16,6 +16,7 @@ import ProfileSkillsPage from '@pages/ProfileSkillsPage';
 import ProfileLanguagesPage from '@pages/ProfileLanguagesPage';
 import ProfileCVsPage from '@pages/ProfileCVsPage';
 import ProjectsPage from '@pages/ProjectsPage';
+import ProjectDetailsPage from '@pages/ProjectDetailsPage';
 
 const App: FC = (): JSX.Element => {
   return (
@@ -59,6 +60,14 @@ const App: FC = (): JSX.Element => {
             <Route
               path={routes.PROJECTS}
               element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
+            />
+            <Route
+              path={routes.PROJECT_DETAILS}
+              element={
+                <PrivateRoute>
+                  <ProjectDetailsPage />
+                </PrivateRoute>
+              }
             />
             <Route path="*" element={<Navigate to={routes.EMPLOYEES} />} />
           </Routes>
