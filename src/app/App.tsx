@@ -15,6 +15,7 @@ import ProfilePage from '@pages/ProfilePage';
 import ProfileSkillsPage from '@pages/ProfileSkillsPage';
 import ProfileLanguagesPage from '@pages/ProfileLanguagesPage';
 import ProfileCVsPage from '@pages/ProfileCVsPage';
+import ProjectsPage from '@pages/ProjectsPage';
 import ProjectDetailsPage from '@pages/ProjectDetailsPage';
 
 const App: FC = (): JSX.Element => {
@@ -55,6 +56,10 @@ const App: FC = (): JSX.Element => {
             <Route
               path={routes.EMPLOYEE_CVS}
               element={<PrivateRoute>{<ProfileCVsPage />}</PrivateRoute>}
+            />
+            <Route
+              path={routes.PROJECTS}
+              element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
             />
             <Route
               path={routes.PROJECT_DETAILS}

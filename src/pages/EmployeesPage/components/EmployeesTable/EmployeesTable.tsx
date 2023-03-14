@@ -1,66 +1,36 @@
-import { FC, useCallback, useMemo, useState } from 'react';
-import { Table, TableBody } from '@mui/material';
+import { FC, useMemo } from 'react';
 import { EmployeesTableRow } from '@pages/EmployeesPage/components/EmployeesTableRow';
-import { EmployeesTableHead } from '@pages/EmployeesPage/components/EmployeesTableHead';
-import {
-  IEmployeesTableProps,
-  IFlattenedUser,
-  ISortingRules,
-  SortingOrder,
-  EmployeesTableUI
-} from '.';
+import { useSort } from '@hooks/index';
+import { AppTable } from '@components/AppTable';
+import { IFlattenedUser } from '@pages/EmployeesPage/EmployeesPage.types';
+import { IEmployeesTableProps } from '.';
 
 const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
-  const [sortingRules, setSortingRules] = useState<ISortingRules>({
-    field: 'department_name',
-    order: SortingOrder.ASC
-  });
+  const [sortedUsers, sortingRules, cycleSortingRules] = useSort(users, 'department_name');
 
-  const flattenedUsers: IFlattenedUser[] = useMemo(() => {
-    return users.map((user) => ({
-      ...user,
-      avatar: user.profile.avatar,
-      first_name: user.profile.first_name,
-      last_name: user.profile.last_name
-    }));
-  }, [users]);
-
-  const sortedUsers = useMemo(() => {
-    const { field, order } = sortingRules;
-
-    return [...flattenedUsers].sort((a, b) => {
-      if (!a[field]) return 1;
-      if (!b[field]) return -1;
-
-      const first = a[field] as string;
-      const second = b[field] as string;
-
-      return order === SortingOrder.ASC ? first.localeCompare(second) : second.localeCompare(first);
-    });
-  }, [flattenedUsers, sortingRules]);
-
-  const cycleSortingRules = useCallback((field: keyof IFlattenedUser) => {
-    setSortingRules((previous) => ({
-      field,
-      order: field === previous.field ? (+!previous.order as SortingOrder) : SortingOrder.ASC
-    }));
-  }, []);
+  const fields: ([keyof IFlattenedUser, string] | undefined)[] = useMemo(
+    () => [
+      undefined,
+      ['first_name', 'First name'],
+      ['last_name', 'Last name'],
+      ['email', 'Email'],
+      ['department_name', 'Department'],
+      ['position_name', 'Position'],
+      undefined
+    ],
+    []
+  );
 
   return (
-    <EmployeesTableUI>
-      <Table>
-        <EmployeesTableHead sortingRules={sortingRules} cycleSortingRules={cycleSortingRules} />
-        <TableBody>
-          {isLoading
-            ? Array.from({ length: 3 }, (_, i) => (
-                <EmployeesTableRow isLoading={isLoading} key={i} user={null} />
-              ))
-            : sortedUsers.map((user) => (
-                <EmployeesTableRow isLoading={isLoading} key={user.id} user={user} />
-              ))}
-        </TableBody>
-      </Table>
-    </EmployeesTableUI>
+    <AppTable<IFlattenedUser[]>
+      sortingRules={sortingRules}
+      cycleSortingRules={cycleSortingRules}
+      fields={fields}
+      isLoading={isLoading}
+      data={sortedUsers}
+    >
+      {(user, key) => <EmployeesTableRow user={user} key={key} isLoading={isLoading} />}
+    </AppTable>
   );
 };
 

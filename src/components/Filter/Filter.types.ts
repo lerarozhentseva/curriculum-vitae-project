@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-export interface IEmployeesFilterProps {
+export interface IFilterProps {
   query: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

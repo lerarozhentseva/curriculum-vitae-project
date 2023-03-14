@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
+import { Assignment, Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
 import { MenuList, Box } from '@mui/material';
 import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
 import { routes } from '@route/routeConstants';
@@ -11,6 +11,13 @@ interface ISideMenuProps {
   open: boolean;
   onClose: () => void;
 }
+
+const iconStyles = {
+  sx: {
+    backgroundColor: 'secondary.contrastText',
+    mr: 2
+  }
+};
 
 export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
   const handleCloseMenu = () => {
@@ -28,10 +35,13 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
         <Box>
           <MenuList>
             <SideMenuItem path={`/${routes.EMPLOYEES}`}>
-              <StyledGroupIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />
+              <StyledGroupIcon {...iconStyles} />
               Employees
             </SideMenuItem>
-            {/*<SideMenuItem path={}>Projects</SideMenuItem>*/}
+            <SideMenuItem path={`/${routes.PROJECTS}`}>
+              <Assignment {...iconStyles} />
+              Projects
+            </SideMenuItem>
             {/*<SideMenuItem path={}>CVs</SideMenuItem>*/}
             {/*<Divider />*/}
             {/*<SideMenuItem path={}>Departments</SideMenuItem>*/}

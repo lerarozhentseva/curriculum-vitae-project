@@ -1,15 +1,6 @@
 import { FC, useCallback } from 'react';
 import { useMutation, useReactiveVar } from '@apollo/client';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  LinearProgress,
-  MenuItem
-} from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { authService } from '@graphql/auth/authService';
 import { IUser } from '@graphql/interfaces';
 import { useDisclosure, useRequest } from '@hooks/index';
@@ -20,6 +11,7 @@ import {
   IDeleteUserMutationReturnValue
 } from '@graphql/users';
 import { Toast } from '@components/Toast';
+import { ConfirmationDialog } from '@components/Dialog';
 import { IDeleteEmployeeDisclosureProps } from '.';
 
 const DeleteEmployeeDisclosure: FC<IDeleteEmployeeDisclosureProps> = ({ user, onBothClose }) => {
@@ -45,21 +37,13 @@ const DeleteEmployeeDisclosure: FC<IDeleteEmployeeDisclosureProps> = ({ user, on
       <MenuItem disabled={authorizedUser?.role !== 'admin'} onClick={onOpen}>
         Delete User
       </MenuItem>
-      <Dialog open={isOpen} onClose={() => onBothClose(onClose)}>
-        {loading && <LinearProgress />}
-        <DialogTitle>Confirm delete action</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete user "{user.email}"?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => onBothClose(onClose)} autoFocus>
-            No
-          </Button>
-          <Button onClick={() => deleteUserRequest(user.id)}>Yes</Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmationDialog
+        isOpen={isOpen}
+        onClose={() => onBothClose(onClose)}
+        isLoading={loading}
+        action={() => deleteUserRequest(user.id)}
+        message={`Are you sure you want to delete user "${user.email}"?`}
+      />
     </>
   );
 };
