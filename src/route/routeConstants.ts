@@ -5,5 +5,6 @@ export enum routes {
   PROFILE = 'employees/:id/profile',
   EMPLOYEE_SKILLS = 'employees/:id/skills',
   EMPLOYEE_LANGUAGES = 'employees/:id/languages',
-  EMPLOYEE_CVS = 'employees/:id/cvs'
+  EMPLOYEE_CVS = 'employees/:id/cvs',
+  PROJECT_DETAILS = 'projects/:id'
 }

@@ -10,5 +10,5 @@ export interface IProject {
   start_date: string;
   end_date: string;
   team_size: number;
-  tech_stack: ISkill[];
+  tech_stack?: ISkill[];
 }
