@@ -25,14 +25,10 @@ const ProjectsTable: FC<IProjectsTableProps> = ({ projects, isLoading }) => {
       sortingRules={sortingRules}
       cycleSortingRules={cycleSortingRules}
       fields={fields}
+      data={sortedProjects}
+      isLoading={isLoading}
     >
-      {isLoading
-        ? Array.from({ length: 3 }, (_, i) => (
-            <ProjectsTableRow key={i} project={null} isLoading={isLoading} />
-          ))
-        : sortedProjects.map((project) => (
-            <ProjectsTableRow key={project.id} project={project} isLoading={isLoading} />
-          ))}
+      {(project, key) => <ProjectsTableRow project={project} isLoading={isLoading} key={key} />}
     </AppTable>
   );
 };

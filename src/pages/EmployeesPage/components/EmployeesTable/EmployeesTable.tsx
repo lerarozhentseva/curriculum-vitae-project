@@ -26,14 +26,10 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({ users, isLoading }) => {
       sortingRules={sortingRules}
       cycleSortingRules={cycleSortingRules}
       fields={fields}
+      isLoading={isLoading}
+      data={sortedUsers}
     >
-      {isLoading
-        ? Array.from({ length: 3 }, (_, i) => (
-            <EmployeesTableRow isLoading={isLoading} key={i} user={null} />
-          ))
-        : sortedUsers.map((user) => (
-            <EmployeesTableRow isLoading={isLoading} key={user.id} user={user} />
-          ))}
+      {(user, key) => <EmployeesTableRow user={user} key={key} isLoading={isLoading} />}
     </AppTable>
   );
 };

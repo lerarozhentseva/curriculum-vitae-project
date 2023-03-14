@@ -14,7 +14,9 @@ export interface IAppTableHeadProps<T extends any[]> {
 }
 
 export interface IAppTableProps<T extends any[]> extends IAppTableHeadProps<T> {
-  children: ReactNode;
+  isLoading: boolean;
+  data: T;
+  children: (item: T[number], key: number) => ReactNode;
 }
 
 export interface ISortingRules<T extends any[]> {
