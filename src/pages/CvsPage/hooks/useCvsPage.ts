@@ -13,7 +13,7 @@ const useCvsPage = () => {
       ...cv
     })) ?? [];
 
-  const [filteredProjects, query, onQueryChange] = useFilter(cvs, 'name', 'description');
+  const [filteredCvs, query, onQueryChange] = useFilter(cvs, 'name', 'description');
   const { error, clearError } = useCompoundError(nativeError);
   const user = useReactiveVar(authService.user$);
 
@@ -30,7 +30,7 @@ const useCvsPage = () => {
     loading,
     error,
     refetch,
-    filteredProjects,
+    filteredCvs,
     query,
     onQueryChange,
     user,

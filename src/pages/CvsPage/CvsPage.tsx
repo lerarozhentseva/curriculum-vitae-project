@@ -7,7 +7,6 @@ import { Header } from '@components/Header';
 import useCvsPage from '@pages/CvsPage/hooks/useCvsPage';
 import { StyledBox } from '@pages/CvsPage/CvsPage.styles';
 import CreateCvFormDialog from '@pages/CvsPage/components/CreateCvFormDialog/CreateCvFormDialog';
-import isAdmin from '@graphql/user/isAdmin';
 import CvsTable from './components/CvsTable/CvsTable';
 
 export interface ICvsCreateResult {
@@ -18,7 +17,7 @@ const CvsPage = () => {
   const {
     loading,
     error,
-    filteredProjects,
+    filteredCvs,
     query,
     onQueryChange,
     isOpen,
@@ -41,7 +40,7 @@ const CvsPage = () => {
           onClick={handleClickOpen}
         />
       </StyledBox>
-      <CvsTable cvs={filteredProjects} isLoading={loading} />
+      <CvsTable cvs={filteredCvs} isLoading={loading} />
       <CreateCvFormDialog isOpen={isOpen} handleClose={handleClickClose} />
     </>
   );
