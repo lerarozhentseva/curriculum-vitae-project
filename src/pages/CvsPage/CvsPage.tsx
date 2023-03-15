@@ -36,7 +36,6 @@ const CvsPage = () => {
       <StyledBox>
         <Filter query={query} onChange={onQueryChange} />
         <CreateEmployeeButton
-          disabled={!isAdmin(user)}
           name="CREATE CV"
           sx={{ width: '150px', height: '40px', mr: '35px' }}
           onClick={handleClickOpen}
