@@ -11,4 +11,5 @@ export * from './IUpdateUserFormData';
 export * from './IUser';
 export * from './ICreateProjectFormData';
 export * from './IUpdateCvFormData';
+export * from './ILanguage';
 

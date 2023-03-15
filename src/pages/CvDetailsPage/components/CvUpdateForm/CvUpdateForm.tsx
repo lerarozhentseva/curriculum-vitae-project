@@ -6,17 +6,16 @@ import { InputTextField } from '@components/Input';
 import { ConfirmButton } from '@components/Button';
 import { authService } from '@graphql/auth/authService';
 import { GetSkillsQuery } from '@graphql/skills';
-import { ISkill, IUpdateCvFormData } from '@graphql/interfaces';
-import { UpdateCvMutation } from '@graphql/cvs/UpdateCvMutation';
-import { GetCvQuery } from '@graphql/cvs';
-import { ILanguage } from '@graphql/interfaces/ILanguage';
+import { ISkill, IUpdateCvFormData, ILanguage } from '@graphql/interfaces';
+import {
+  GetCvQuery,
+  IUpdateCvMutationParameters,
+  IUpdateCvMutationReturnValue,
+  UpdateCvMutation
+} from '@graphql/cvs';
 import { GetLanguagesQuery } from '@graphql/languages';
 import { CvMasterySection } from '@pages/CvDetailsPage/components/CvMasterySection';
 import { MASTERY_LEVELS, PROFICIENCY_LEVELS } from '@pages/CvDetailsPage/utils';
-import {
-  IUpdateCvMutationParameters,
-  IUpdateCvMutationReturnValue
-} from '@graphql/cvs/UpdateCvMutation.types';
 import { Toast } from '@components/Toast';
 import { ICvUpdateFormProps } from '.';
 
