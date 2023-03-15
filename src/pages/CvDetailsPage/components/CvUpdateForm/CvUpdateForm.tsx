@@ -4,6 +4,7 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import { useNestedFormData, useDerivedMap, useRequest } from '@hooks/index';
 import { InputTextField } from '@components/Input';
 import { ConfirmButton } from '@components/Button';
+import isAdmin from '@graphql/user/isAdmin';
 import { authService } from '@graphql/auth/authService';
 import { IUpdateCvFormData } from '@graphql/interfaces';
 import {
@@ -39,7 +40,7 @@ const CvUpdateForm: FC<ICvUpdateFormProps> = ({ cv }) => {
   const user = useReactiveVar(authService.user$);
 
   const allowedToUpdate = useMemo(() => {
-    return user?.role === 'admin' || user?.id === cv.user?.id;
+    return isAdmin(user) || user?.id === cv.user?.id;
   }, [user, cv]);
 
   const [masteryMap, onSkillsChange, onMasteryChange] = useDerivedMap(
