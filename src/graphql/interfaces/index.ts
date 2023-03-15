@@ -10,4 +10,5 @@ export * from './ISkillMastery';
 export * from './IUpdateUserFormData';
 export * from './IUser';
 export * from './ICreateProjectFormData';
+export * from './IUpdateCvFormData';
 
