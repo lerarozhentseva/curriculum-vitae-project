@@ -5,6 +5,7 @@ import { GetCvQuery } from '@graphql/cvs';
 import { Header } from '@components/Header';
 import { Breadcrumb } from '@components/Breadcrumbs';
 import { ICv } from '@graphql/interfaces';
+import { CvUpdateForm } from './components/CvUpdateForm';
 
 const CvDetailsPage: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,7 @@ const CvDetailsPage: FC = () => {
     <>
       <Header />
       <Breadcrumb />
+      {data && <CvUpdateForm cv={data.cv} />}
     </>
   );
 };
