@@ -1,21 +1,20 @@
 import { FC, useCallback, useMemo } from 'react';
 import { LinearProgress, Paper, Typography } from '@mui/material';
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { useAdaptToSelect, useNestedFormData, useDerivedMap, useRequest } from '@hooks/index';
+import { useMutation, useReactiveVar } from '@apollo/client';
+import { useNestedFormData, useDerivedMap, useRequest } from '@hooks/index';
 import { InputTextField } from '@components/Input';
 import { ConfirmButton } from '@components/Button';
 import { authService } from '@graphql/auth/authService';
-import { GetSkillsQuery } from '@graphql/skills';
-import { ISkill, IUpdateCvFormData, ILanguage } from '@graphql/interfaces';
+import { IUpdateCvFormData } from '@graphql/interfaces';
 import {
   GetCvQuery,
   IUpdateCvMutationParameters,
   IUpdateCvMutationReturnValue,
   UpdateCvMutation
 } from '@graphql/cvs';
-import { GetLanguagesQuery } from '@graphql/languages';
-import { CvMasterySection } from '@pages/CvDetailsPage/components/CvMasterySection';
 import { MASTERY_LEVELS, PROFICIENCY_LEVELS } from '@pages/CvDetailsPage/utils';
+import { CvSkillsSelect } from '@pages/CvDetailsPage/components/CvSkillsSelect';
+import { CvLanguagesSelect } from '@pages/CvDetailsPage/components/CvLanguagesSelect';
 import { Toast } from '@components/Toast';
 import { ICvUpdateFormProps } from '.';
 
@@ -42,12 +41,6 @@ const CvUpdateForm: FC<ICvUpdateFormProps> = ({ cv }) => {
   const allowedToUpdate = useMemo(() => {
     return user?.role === 'admin' || user?.id === cv.user?.id;
   }, [user, cv]);
-
-  const { data: skillsData } = useQuery<{ skills: ISkill[] }>(GetSkillsQuery);
-  const skills = useAdaptToSelect(skillsData?.skills, 'name');
-
-  const { data: languagesData } = useQuery<{ languages: ILanguage[] }>(GetLanguagesQuery);
-  const languages = useAdaptToSelect(languagesData?.languages, 'name');
 
   const [masteryMap, onSkillsChange, onMasteryChange] = useDerivedMap(
     cv.skills,
@@ -106,24 +99,16 @@ const CvUpdateForm: FC<ICvUpdateFormProps> = ({ cv }) => {
           label="Description"
           name="description"
         />
-        <CvMasterySection
+        <CvSkillsSelect
           chosen={formData.skills}
-          options={skills}
-          selectLabel="Skills"
-          selectName="skills"
           onChoiceChange={onSkillsChange}
           onMasteryChange={onMasteryChange}
-          masteryLevels={MASTERY_LEVELS}
           masteryMap={masteryMap}
         />
-        <CvMasterySection
+        <CvLanguagesSelect
           chosen={formData.languages}
-          options={languages}
-          selectLabel="Languages"
-          selectName="languages"
           onChoiceChange={onLanguagesChange}
           onMasteryChange={onProficiencyChange}
-          masteryLevels={PROFICIENCY_LEVELS}
           masteryMap={proficiencyMap}
         />
         <ConfirmButton
