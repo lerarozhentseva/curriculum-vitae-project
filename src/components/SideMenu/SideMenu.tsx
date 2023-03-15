@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
 import { Assignment, Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
-import { MenuList, Box } from '@mui/material';
+import { MenuList, Box, Divider } from '@mui/material';
 import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
 import { routes } from '@route/routeConstants';
 import { StyledDrawerBox, StyledDrawerToolbar } from '@components/SideMenu/sideMenu.styles';
@@ -42,8 +42,8 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
               <Assignment {...iconStyles} />
               Projects
             </SideMenuItem>
-            {/*<SideMenuItem path={}>CVs</SideMenuItem>*/}
-            {/*<Divider />*/}
+            <SideMenuItem path={`/${routes.CVS}`}>CVs</SideMenuItem>
+            <Divider />
             {/*<SideMenuItem path={}>Departments</SideMenuItem>*/}
             {/*<SideMenuItem path={}>Positions</SideMenuItem>*/}
             {/*<SideMenuItem path={}>Skills</SideMenuItem>*/}

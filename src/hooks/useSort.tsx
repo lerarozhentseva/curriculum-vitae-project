@@ -14,13 +14,23 @@ export default function useSort<T extends any[]>(
     const { field, order } = sortingRules;
 
     return [...data].sort((a, b) => {
-      if (!a[field]) return 1;
-      if (!b[field]) return -1;
+      const first = a[field];
+      const second = b[field];
 
-      const first = a[field] as string;
-      const second = b[field] as string;
+      if (!first && !second) {
+        return 0;
+      } else if (!first) {
+        return 1;
+      } else if (!second) {
+        return -1;
+      }
 
-      return order === SortingOrder.ASC ? first.localeCompare(second) : second.localeCompare(first);
+      const firstStr = String(first);
+      const secondStr = String(second);
+
+      return order === SortingOrder.ASC
+        ? firstStr.localeCompare(secondStr)
+        : secondStr.localeCompare(firstStr);
     }) as T;
   }, [data, sortingRules]);
 

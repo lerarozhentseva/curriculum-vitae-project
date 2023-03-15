@@ -8,7 +8,7 @@ export type InputProps = {
   size?: 'small' | 'medium' | undefined;
   placeholder?: string;
   label?: string;
-  defaultValue: string | number;
+  defaultValue?: string | number;
   error?: boolean;
   color?: 'primary' | 'secondary';
   sx?: SxProps;
