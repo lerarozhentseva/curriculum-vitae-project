@@ -24,7 +24,7 @@ function CvsTableRowActions({ cv }: ICvsTableRowActionsProps) {
       <IconButton onClick={toCvDetails}>
         <OpenInFull />
       </IconButton>
-      {isAdmin(user) && <DeleteCvComponent cv={cv} />}
+      {(isAdmin(user) || cv?.user?.id === user?.id) && <DeleteCvComponent cv={cv} />}
     </>
   );
 }
