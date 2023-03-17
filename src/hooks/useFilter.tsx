@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { debounce } from 'lodash';
 
 export default function useFilter<T extends any[]>(
   data: T,
@@ -7,9 +8,19 @@ export default function useFilter<T extends any[]>(
 ): [T, keyof T[number], (e: ChangeEvent<HTMLInputElement>) => void] {
   const [query, setQuery] = useState('');
 
-  const onQueryChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  }, []);
+  const debouncedSetQuery = useCallback(
+    debounce((value: string) => {
+      setQuery(value);
+    }, 250),
+    []
+  );
+
+  const onQueryChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      debouncedSetQuery(e.target.value);
+    },
+    [debouncedSetQuery]
+  );
 
   const filteredData = useMemo(() => {
     if (!query) return data;

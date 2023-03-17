@@ -1,14 +1,16 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ISortingRules, SortingOrder } from '@components/AppTable';
 
 export default function useSort<T extends any[]>(
   data: T,
   initialField: keyof T[number]
-): [T, ISortingRules<T>, (field: keyof T[number]) => void] {
+): [T, ISortingRules<T>, (field: keyof T[number]) => void, boolean] {
   const [sortingRules, setSortingRules] = useState<ISortingRules<T>>({
     field: initialField,
     order: SortingOrder.ASC
   });
+
+  const [isLoadingSort, setIsLoadingSort] = useState<boolean>(false);
 
   const sortedData = useMemo(() => {
     const { field, order } = sortingRules;
@@ -41,5 +43,14 @@ export default function useSort<T extends any[]>(
     }));
   }, []);
 
-  return [sortedData, sortingRules, cycleSortingRules];
+  useEffect(() => {
+    if (sortedData !== data) {
+      setIsLoadingSort(true);
+      setTimeout(() => {
+        setIsLoadingSort(false);
+      }, 600);
+    }
+  }, [sortedData, data]);
+
+  return [sortedData, sortingRules, cycleSortingRules, isLoadingSort];
 }

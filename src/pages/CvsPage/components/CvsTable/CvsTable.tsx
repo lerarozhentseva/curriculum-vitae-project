@@ -10,7 +10,7 @@ export interface ICvsTableProps {
 }
 
 const CvsTable: FC<ICvsTableProps> = ({ cvs, isLoading }) => {
-  const [sortedCvs, sortingRules, cycleSortingRules] = useSort(cvs, 'name');
+  const [sortedCvs, sortingRules, cycleSortingRules, isLoadingSort] = useSort(cvs, 'name');
 
   const fields: ([keyof ICv, string] | undefined)[] = [
     ['is_template', 'Template'],
@@ -29,7 +29,9 @@ const CvsTable: FC<ICvsTableProps> = ({ cvs, isLoading }) => {
       data={sortedCvs}
       isLoading={isLoading}
     >
-      {(cv, key) => <CvsTableRow cv={cv} isLoading={isLoading} key={key} />}
+      {(cv, key) => (
+        <CvsTableRow cv={cv} isLoading={isLoading} key={key} isLoadingSort={isLoadingSort} />
+      )}
     </AppTable>
   );
 };
