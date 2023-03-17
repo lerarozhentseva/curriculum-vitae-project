@@ -4,8 +4,9 @@ import useUserData from '@hooks/useUserData';
 import useAuth from './useAuthHook';
 import useOpenMenu from './useOpenMenu';
 import useSendForm from './useSendForm';
+import useDebounce from '@hooks/useDebounce';
 
-export { useSendForm, useAuth, useOpenMenu, useUserData, useUpdateUser, useAvatar };
+export { useSendForm, useAuth, useOpenMenu, useUserData, useUpdateUser, useAvatar, useDebounce };
 
 export { default as useAdaptToSelect } from './useAdaptToSelect';
 export { default as useCompoundError } from './useCompoundError';
