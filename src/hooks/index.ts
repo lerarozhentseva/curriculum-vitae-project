@@ -1,10 +1,10 @@
 import useAvatar from '@hooks/useAvatar';
 import useUpdateUser from '@hooks/useUpdateUser';
 import useUserData from '@hooks/useUserData';
+import useDebounce from '@hooks/useDebounce';
 import useAuth from './useAuthHook';
 import useOpenMenu from './useOpenMenu';
 import useSendForm from './useSendForm';
-import useDebounce from '@hooks/useDebounce';
 
 export { useSendForm, useAuth, useOpenMenu, useUserData, useUpdateUser, useAvatar, useDebounce };
 
