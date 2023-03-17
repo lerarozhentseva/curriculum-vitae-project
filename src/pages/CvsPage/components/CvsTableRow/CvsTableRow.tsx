@@ -49,7 +49,7 @@ const CvsTableRow: FC<ICvsTableRowProps> = ({ cv, isLoading, isLoadingSort }) =>
           )}
         </div>
       </TableCell>
-      <TableCell>{!isLoading && cv && <CvsTableRowActions cv={cv} />}</TableCell>
+      <TableCell>{!isLoading && !isLoadingSort && cv && <CvsTableRowActions cv={cv} />}</TableCell>
     </TableRow>
   );
 };
