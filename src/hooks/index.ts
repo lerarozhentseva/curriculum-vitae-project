@@ -15,3 +15,4 @@ export { default as useRequest } from './useRequest';
 export { default as useSort } from './useSort';
 export { default as useFilter } from './useFilter';
 export { default as useSkeleton } from './useSkeleton';
+export { default as useDerivedMap } from './useDerivedMap';
