@@ -17,6 +17,7 @@ import ProfileLanguagesPage from '@pages/ProfileLanguagesPage';
 import ProfileCVsPage from '@pages/ProfileCVsPage';
 import ProjectsPage from '@pages/ProjectsPage';
 import ProjectDetailsPage from '@pages/ProjectDetailsPage';
+import CvsPage from '@pages/CvsPage';
 import CvDetailsPage from '@pages/CvDetailsPage';
 import CvProjectsPage from '@pages/CvProjectsPage';
 
@@ -71,6 +72,7 @@ const App: FC = (): JSX.Element => {
                 </PrivateRoute>
               }
             />
+            <Route path={routes.CVS} element={<PrivateRoute>{<CvsPage />}</PrivateRoute>} />
             <Route
               path={routes.CV_DETAILS}
               element={
