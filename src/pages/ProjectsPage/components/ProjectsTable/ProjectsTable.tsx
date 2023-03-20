@@ -3,6 +3,7 @@ import { AppTable } from '@components/AppTable';
 import { IProject } from '@graphql/interfaces';
 import { useSort } from '@hooks/index';
 import { ProjectsTableRow } from '../ProjectsTableRow';
+import { ProjectsTableRowActions } from '../ProjectsTableRowActions';
 import { IProjectsTableProps } from '.';
 
 const ProjectsTable: FC<IProjectsTableProps> = ({ projects, isLoading }) => {
@@ -28,7 +29,14 @@ const ProjectsTable: FC<IProjectsTableProps> = ({ projects, isLoading }) => {
       data={sortedProjects}
       isLoading={isLoading}
     >
-      {(project, key) => <ProjectsTableRow project={project} isLoading={isLoading} key={key} />}
+      {(project, key) => (
+        <ProjectsTableRow
+          project={project}
+          isLoading={isLoading}
+          key={key}
+          actions={(project) => <ProjectsTableRowActions project={project} />}
+        />
+      )}
     </AppTable>
   );
 };

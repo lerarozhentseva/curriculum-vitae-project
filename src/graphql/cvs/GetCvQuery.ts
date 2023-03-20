@@ -21,6 +21,14 @@ export const GetCvQuery = gql`
         language_name
         proficiency
       }
+      projects {
+        id
+        name
+        internal_name
+        domain
+        start_date
+        end_date
+      }
       is_template
     }
   }
