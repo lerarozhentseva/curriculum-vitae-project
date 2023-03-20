@@ -2,10 +2,9 @@ import { FC } from 'react';
 import { TableCell, TableRow } from '@mui/material';
 import { formatDate } from '@pages/ProjectsPage/utils';
 import { useSkeleton } from '@hooks/index';
-import { ProjectsTableRowActions } from '@pages/ProjectsPage/components/ProjectsTableRowActions';
 import { IProjectsTableRowProps } from '.';
 
-const ProjectsTableRow: FC<IProjectsTableRowProps> = ({ project, isLoading }) => {
+const ProjectsTableRow: FC<IProjectsTableRowProps> = ({ project, isLoading, actions }) => {
   const tryShow = useSkeleton(isLoading);
 
   return (
@@ -20,9 +19,7 @@ const ProjectsTableRow: FC<IProjectsTableRowProps> = ({ project, isLoading }) =>
           'text'
         )}
       </TableCell>
-      <TableCell>
-        {!isLoading && project && <ProjectsTableRowActions project={project} />}
-      </TableCell>
+      <TableCell>{!isLoading && project && actions(project)}</TableCell>
     </TableRow>
   );
 };

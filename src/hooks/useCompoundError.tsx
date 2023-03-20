@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const useCompoundError = (nativeError: Error | null | undefined) => {
+const useCompoundError = (...nativeErrors: (Error | null | undefined)[]) => {
   const [error, setError] = useState('');
 
   const raiseError = useCallback((message: string) => {
@@ -12,8 +12,12 @@ const useCompoundError = (nativeError: Error | null | undefined) => {
   }, []);
 
   useEffect(() => {
-    if (nativeError) raiseError(nativeError.message);
-  }, [nativeError]);
+    const messages: string[] = [];
+    for (let i = 0; i < nativeErrors.length; i++) {
+      if (nativeErrors[i]) messages.push(nativeErrors[i]?.message ?? '');
+    }
+    raiseError(messages.join('\n'));
+  }, [...nativeErrors]);
 
   return {
     error,

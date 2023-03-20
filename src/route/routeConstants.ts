@@ -10,4 +10,6 @@ export enum routes {
   PROJECT_DETAILS = 'projects/:id',
   CVS = 'cvs',
   CVS_DETAILS = 'cvs/:id'
+  CV_DETAILS = 'cvs/:id/details',
+  CV_PROJECTS = 'cvs/:id/projects'
 }
