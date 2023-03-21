@@ -1,5 +1,4 @@
 import { FC, useCallback } from 'react';
-import { LinearProgress } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { AppTable } from '@components/AppTable';
 import { useRequest, useSort } from '@hooks/index';
@@ -12,6 +11,7 @@ import {
   UpdateCvMutation
 } from '@graphql/cvs';
 import { Toast } from '@components/Toast';
+import { FixedProgress } from '@components/Progress';
 import { ICvProjectsTableProps } from '.';
 
 const CvProjectsTable: FC<ICvProjectsTableProps> = ({ projects, cv, isLoading }) => {
@@ -46,7 +46,7 @@ const CvProjectsTable: FC<ICvProjectsTableProps> = ({ projects, cv, isLoading })
 
   return (
     <>
-      {loading && <LinearProgress sx={{ position: 'fixed', inset: '0', top: 'unset' }} />}
+      {loading && <FixedProgress />}
       <Toast severity="error" message={error} onClose={clearError} />
       <AppTable
         fields={CV_PROJECTS_TABLE_FIELDS}
