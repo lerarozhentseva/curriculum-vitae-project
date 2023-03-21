@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { AppTable } from '@components/AppTable';
+import { DEPARTMENTS_TABLE_FIELDS } from '@pages/DepartmentsPage/utils';
 import { DepartmentsTableRow } from '@pages/DepartmentsPage/components/DepartmentsTableRow';
+import { AppTable } from '@components/AppTable';
 import { useSort } from '@hooks/index';
 import { IDepartmentsTableProps } from '.';
 
@@ -9,7 +10,7 @@ const DepartmentsTable: FC<IDepartmentsTableProps> = ({ departments, isLoading }
 
   return (
     <AppTable
-      fields={[['name', 'Name'], undefined]}
+      fields={DEPARTMENTS_TABLE_FIELDS}
       data={sortedDepartments}
       sortingRules={sortingRules}
       cycleSortingRules={cycleSortingRules}
