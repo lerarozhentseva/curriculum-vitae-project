@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { Assignment, Close as CloseIcon, Groups, Translate as TranslateIcon } from '@mui/icons-material';
+import {
+  Assignment,
+  Close as CloseIcon,
+  Groups,
+  Translate as TranslateIcon
+} from '@mui/icons-material';
 import { MenuList, Box, Divider } from '@mui/material';
 import BallotIcon from '@mui/icons-material/Ballot';
 import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
