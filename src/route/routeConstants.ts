@@ -9,7 +9,7 @@ export enum routes {
   PROJECTS = 'projects',
   PROJECT_DETAILS = 'projects/:id',
   CVS = 'cvs',
-  CVS_DETAILS = 'cvs/:id'
   CV_DETAILS = 'cvs/:id/details',
-  CV_PROJECTS = 'cvs/:id/projects'
+  CV_PROJECTS = 'cvs/:id/projects',
+  POSITIONS = 'positions'
 }

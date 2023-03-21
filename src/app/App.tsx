@@ -20,6 +20,7 @@ import ProjectDetailsPage from '@pages/ProjectDetailsPage';
 import CvsPage from '@pages/CvsPage';
 import CvDetailsPage from '@pages/CvDetailsPage';
 import CvProjectsPage from '@pages/CvProjectsPage';
+import PositionPage from '@pages/PositionPage';
 
 const App: FC = (): JSX.Element => {
   return (
@@ -86,6 +87,14 @@ const App: FC = (): JSX.Element => {
               element={
                 <PrivateRoute>
                   <CvProjectsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.POSITIONS}
+              element={
+                <PrivateRoute>
+                  <PositionPage />
                 </PrivateRoute>
               }
             />
