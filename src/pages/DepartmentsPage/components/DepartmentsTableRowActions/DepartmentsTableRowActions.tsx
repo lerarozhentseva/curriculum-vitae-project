@@ -29,8 +29,8 @@ const DepartmentsTableRowActions: FC<IDepartmentsTableRowActionsProps> = ({
   });
 
   const updateDepartment = useCallback(async () => {
-    if (!department) return;
-    await updateAction({ variables: { id: department.id, department: { name } } });
+    if (department && name !== department.name)
+      await updateAction({ variables: { id: department.id, department: { name } } });
     disableEditing();
   }, [department, name]);
 
