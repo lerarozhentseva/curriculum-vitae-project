@@ -28,31 +28,29 @@ const DepartmentsTableRow: FC<IDepartmentsTableRowProps> = ({ department, isLoad
   const user = useReactiveVar(authService.user$);
 
   return (
-    <>
-      <TableRow>
-        <TableCell>
-          {tryShow(
-            isEditing ? (
-              <StyledTextField type="text" size="small" value={name} onChange={onNameChange} />
-            ) : (
-              department?.name
-            ),
-            'text'
-          )}
-        </TableCell>
-        <TableCell>
-          {!isLoading && department && isAdmin(user) && (
-            <DepartmentsTableRowActions
-              department={department}
-              isEditing={isEditing}
-              name={name}
-              enableEditing={enableEditing}
-              disableEditing={disableEditing}
-            />
-          )}
-        </TableCell>
-      </TableRow>
-    </>
+    <TableRow>
+      <TableCell>
+        {tryShow(
+          isEditing ? (
+            <StyledTextField type="text" size="small" value={name} onChange={onNameChange} />
+          ) : (
+            department?.name
+          ),
+          'text'
+        )}
+      </TableCell>
+      <TableCell>
+        {!isLoading && department && isAdmin(user) && (
+          <DepartmentsTableRowActions
+            department={department}
+            isEditing={isEditing}
+            name={name}
+            enableEditing={enableEditing}
+            disableEditing={disableEditing}
+          />
+        )}
+      </TableCell>
+    </TableRow>
   );
 };
 
