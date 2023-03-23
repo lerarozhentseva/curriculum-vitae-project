@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Drawer from '@mui/material/Drawer';
-import { Assignment, Close as CloseIcon, Translate as TranslateIcon } from '@mui/icons-material';
+import { Assignment, Close as CloseIcon, ListAlt as ListAltIcon } from '@mui/icons-material';
 import { MenuList, Box, Divider } from '@mui/material';
 import BallotIcon from '@mui/icons-material/Ballot';
 import { StyledIconButton, StyledGroupIcon } from '@components/SideMenu/sideMenu.styles';
@@ -48,8 +48,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
               CVs
             </SideMenuItem>
             <Divider />
-            {/*<SideMenuItem path={}>Departments</SideMenuItem>*/}
-            {/*<SideMenuItem path={}>Positions</SideMenuItem>*/}
+            <SideMenuItem path={`/${routes.POSITIONS}`}>
+              <ListAltIcon {...iconStyles} />
+              Positions
+            </SideMenuItem>
             {/*<SideMenuItem path={}>Skills</SideMenuItem>*/}
             {/*<SideMenuItem path={}>*/}
             {/*  <TranslateIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />*/}
