@@ -16,7 +16,7 @@ function CvsTableRowActions({ cv }: ICvsTableRowActionsProps) {
   const navigate = useNavigate();
 
   const toCvDetails = () => {
-    navigate(`/cvs/${cv.id}`);
+    navigate(`/cvs/${cv.id}/details`);
   };
 
   return (
