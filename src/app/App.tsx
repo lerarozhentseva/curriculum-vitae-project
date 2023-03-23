@@ -22,6 +22,7 @@ import CvDetailsPage from '@pages/CvDetailsPage';
 import CvProjectsPage from '@pages/CvProjectsPage';
 import DepartmentsPage from '@pages/DepartmentsPage';
 import PositionPage from '@pages/PositionPage';
+import LanguagesPage from '@pages/LanguagesPage';
 
 const App: FC = (): JSX.Element => {
   return (
@@ -104,6 +105,14 @@ const App: FC = (): JSX.Element => {
               element={
                 <PrivateRoute>
                   <PositionPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.LANGUAGES}
+              element={
+                <PrivateRoute>
+                  <LanguagesPage />
                 </PrivateRoute>
               }
             />
