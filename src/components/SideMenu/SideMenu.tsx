@@ -4,7 +4,8 @@ import {
   Assignment,
   Close as CloseIcon,
   Groups,
-  Translate as TranslateIcon
+  Translate as TranslateIcon,
+  ListAlt as ListAltIcon
 } from '@mui/icons-material';
 import { MenuList, Box, Divider } from '@mui/material';
 import BallotIcon from '@mui/icons-material/Ballot';
@@ -57,7 +58,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
               <Groups {...iconStyles} />
               Departments
             </SideMenuItem>
-            {/*<SideMenuItem path={}>Positions</SideMenuItem>*/}
+            <SideMenuItem path={`/${routes.POSITIONS}`}>
+              <ListAltIcon {...iconStyles} />
+              Positions
+            </SideMenuItem>
             {/*<SideMenuItem path={}>Skills</SideMenuItem>*/}
             {/*<SideMenuItem path={}>*/}
             {/*  <TranslateIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />*/}

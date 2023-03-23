@@ -11,5 +11,6 @@ export enum routes {
   CVS = 'cvs',
   CV_DETAILS = 'cvs/:id/details',
   CV_PROJECTS = 'cvs/:id/projects',
-  DEPARTMENTS = 'departments'
+  DEPARTMENTS = 'departments',
+  POSITIONS = 'positions'
 }
