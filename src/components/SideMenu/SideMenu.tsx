@@ -63,10 +63,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ open, onClose }) => {
               Positions
             </SideMenuItem>
             {/*<SideMenuItem path={}>Skills</SideMenuItem>*/}
-            {/*<SideMenuItem path={}>*/}
-            {/*  <TranslateIcon sx={{ backgroundColor: 'secondary.contrastText', mr: 2 }} />*/}
-            {/*  Languages*/}
-            {/*</SideMenuItem>*/}
+            <SideMenuItem path={`/${routes.LANGUAGES}`}>
+              <TranslateIcon {...iconStyles} />
+              Languages
+            </SideMenuItem>
           </MenuList>
         </Box>
       </StyledDrawerBox>
